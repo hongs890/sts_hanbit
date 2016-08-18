@@ -1,4 +1,4 @@
-package com.hanbit.web;
+package com.hanbit.web.home;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -33,7 +33,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";
+		return "home/main";
 	}
 	
 }
