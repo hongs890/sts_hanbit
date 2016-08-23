@@ -27,10 +27,10 @@ var douglas = (function(){
 	var context = sessionStorage.getItem('context');
 	return{
 		init : function(){
-			document.querySelector('#bt_bom').addEventListener('click',function(){move(context,'bom');},false);
-			document.querySelector('#bt_dom').addEventListener('click',function(){move(context,'dom');},false);
-			document.querySelector('#bt_kaup').addEventListener('click',function(){move(context,'kaup');},false);
-			document.querySelector('#bt_account').addEventListener('click',function(){move(context,'account');},false);
+			$('#bt_bom').click(member.spec);
+			$('#bt_dom').click(this.spec);
+			$('#bt_kaup').click(this.deposit);
+			$('#bt_account').click(this.withdraw);
 		}
 	};
 })();
@@ -78,7 +78,7 @@ var account = (function(){
 	};
 })();
 
-var member =(function(){
+var member2 = (function(){
 	var _ssn, _name, _gender, _age;
 	var setAge = function(age){this._age=age;}
 	var setGender = function(gender){this._gender=gender;}
