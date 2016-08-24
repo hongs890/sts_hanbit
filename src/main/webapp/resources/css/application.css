@@ -7,7 +7,6 @@
 .remove_underline{text-decoration: none}
 .cursor_pointer{cursor:pointer}
 .bottom{
-	position: absolute;
 	bottom: 0;
 	width: 100%;
 	height: 50px;
@@ -19,10 +18,12 @@
 .border_red{border:1px solid red;}
 .formbox{padding:20px; border: 1px solid #999999; margin:0 auto; text-align: center}
 #header {
-    background-color:black;
+    background-color:#676767;
     color:white;
     text-align:center;
-    padding:5px;
+    font-weight: bold;
+    padding:50px;
+    margin-bottom: 50px;
 }
 
 #section {
@@ -31,8 +32,8 @@
     padding:10px;
 }
 #footer {
-	
-    background-color:black;
+	margin-top: 50px;
+    background-color:#676767;
     color:white;
     clear:both;
     text-align:center;
@@ -45,7 +46,7 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
+    background-color: #676767;
 }
 
 #nav li {
@@ -62,12 +63,12 @@
 
 #nav li a:hover:not(.active) {
     background-color: white;
-	color: black;
+	color: #676767;
 	font-weight: bold;
 }
 
 #active {
-    background-color: black;
+    background-color: #676767;
 }
 #container{width: 100%}
 #databox{float: left; width: 400px; margin-left:20px; padding: 20px; border: 1px solid #999999;}

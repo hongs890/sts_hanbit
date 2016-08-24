@@ -30,11 +30,11 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		String formattedDate = dateFormat.format(date);
 		model.addAttribute("serverTime", formattedDate );
-		return "global/content.tiles";
+		return "public:global/content.tiles";
 	}
-	@RequestMapping("school_info")
+	@RequestMapping("global/school_info")
 	public String schoolInfo(){
-		return "global/school_info.tiles";
+		return "user:global/school_info.tiles";
 	}
 	
 }

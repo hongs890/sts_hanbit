@@ -40,15 +40,11 @@
       </footer>
   </body>
   <script src="${js}/application.js"></script>
-  <script src="${js}/douglas.js"></script>
-  <script src="${js}/grade.js"></script> 
-  <script src="${js}/member.js"></script>
-  <script src="${js}/account.js"></script>
   <script>
   app.init('${context}');
-  douglas.init();
+  user.init();
   grade.init();  
   member.init();
-  account.init();
+  user.account();
   </script>
 </html>
