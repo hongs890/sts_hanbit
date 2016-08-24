@@ -13,5 +13,34 @@ public class GradeController {
 	public String goMain(){
 		return "grade/content.tiles";
 	}
+	@RequestMapping("/regist")
+	public String goRegist(){
+		return "grade/regist.tiles";
+	}
 	
+	@RequestMapping("/update")
+	public String goUpdate(){
+		return "grade/update.tiles";
+	}
+	
+	@RequestMapping("/delete")
+	public String goDelete(){
+		return "grade/delete.tiles";
+	}
+	
+	@RequestMapping("/list")
+	public String goList(){
+		return "grade/list.tiles";
+	}
+	
+	@RequestMapping("/count")
+	public String goCount(){
+		return "grade/count.tiles";
+	}
+	
+	@RequestMapping("/search")
+	public String goSearch(){
+		return "grade/search.tiles";
+	}
+
 }

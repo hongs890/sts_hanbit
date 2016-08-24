@@ -8,6 +8,6 @@
 				<input type="submit" value="탈퇴">
 				<input type="reset" value="취소">
 			</form> 
-	<a href="${context }/member.do"><img src="${img}/member.png" alt="member" style="width: 30px" /></a> 
-	<a href="${context}/global.do"><img src="${img }/home.png" alt="home" style="width: 30px" /></a>
+	<a id="member_content_a_member"><img id="member_content_img_member"/></a>
+	<a id="member_content_a_home"><img id="member_content_img_home"/></a>
 	</div>

@@ -35,7 +35,7 @@ var douglas = (function(){
 	};
 })();
 
-var account = (function(){
+var d_account = (function(){
 	var _account_no, _money;
 	var setAccountNo = function(account_no){this._account_no = account_no;}
 	var getAccountNo = function(){return this._account_no;}
@@ -78,7 +78,7 @@ var account = (function(){
 	};
 })();
 
-var member2 = (function(){
+var d_member = (function(){
 	var _ssn, _name, _gender, _age;
 	var setAge = function(age){this._age=age;}
 	var setGender = function(gender){this._gender=gender;}

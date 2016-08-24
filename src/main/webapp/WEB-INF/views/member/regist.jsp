@@ -27,5 +27,7 @@ span.meta{width: 200px; background-color:yellow; float: center}
 		<input type="submit" value="회원가입" />
 		<input type="reset" value="취소" />
 	</form>	
-	<a href="${context }/home.do"><img src="${img }/home.png" alt="home" style="width:30px" /></a>
+	<a id="member_content_a_home">
+	<img id="member_content_img_home"/>
+	</a>
 </div>

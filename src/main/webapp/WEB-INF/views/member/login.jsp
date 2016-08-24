@@ -9,5 +9,5 @@
 			<input type="submit" value="로그인" />
 			<input type="reset" value="취소">
 		</form> <br/>
-	<a href="${context }/home.do"><img src="${img }/home.png" alt="home" style="width:30px" /></a>
+	<a id="member_content_a_home"><img id="member_content_img_home"/></a>
 </div>
