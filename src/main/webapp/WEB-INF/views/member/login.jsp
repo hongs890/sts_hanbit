@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<div style="text-align: center">
+<div class="box">
 		<form action="${context }/member.do" method="post">
 			<span class="meta">ID</span><input type="text" name="id"/><br/>
 			<span class="meta">비밀번호</span><input type="password" name="pw"/><br/><br/>

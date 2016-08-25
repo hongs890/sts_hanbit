@@ -41,10 +41,7 @@
   </body>
   <script src="${js}/application.js"></script>
   <script>
-  app.init('${context}');
-  user.init();
-  grade.init();  
-  member.init();
-  user.account();
+ 	app.init('${context}');
+	
   </script>
 </html>

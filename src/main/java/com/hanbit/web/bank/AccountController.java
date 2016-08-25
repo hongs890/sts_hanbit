@@ -11,39 +11,39 @@ public class AccountController {
 	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 	@RequestMapping("/main")
 	public String goMain(){
-		return "account/content.tiles";
+		return "admin:account/content.tiles";
 	}
 	@RequestMapping("/regist")
 	public String goRegist(){
-		return "account/regist.tiles";
+		return "admin:account/regist.tiles";
 	}
 	@RequestMapping("/deposit")
 	public String goDeposit(){
-		return "account/deposit.tiles";
+		return "admin:account/deposit.tiles";
 	}
 	@RequestMapping("/withdraw")
 	public String goWithdraw(){
-		return "account/withdraw.tiles";
+		return "admin:account/withdraw.tiles";
 	}
 	@RequestMapping("/update")
 	public String goUpdate(){
-		return "account/update.tiles";
+		return "admin:account/update.tiles";
 	}
 	@RequestMapping("/delete")
 	public String goDelete(){
-		return "account/delete.tiles";
+		return "admin:account/delete.tiles";
 	}
 	@RequestMapping("/list")
 	public String goList(){
-		return "account/list.tiles";
+		return "admin:account/list.tiles";
 	}
 	@RequestMapping("/find_by_account")
 	public String goFindByAccount(){
-		return "account/search.tiles";
+		return "admin:account/search.tiles";
 	}
 	@RequestMapping("/count")
 	public String goCount(){
-		return "account/count.tiles";
+		return "admin:account/count.tiles";
 	}
 	
 
