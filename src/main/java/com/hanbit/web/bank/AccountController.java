@@ -13,9 +13,9 @@ public class AccountController {
 	public String goMain(){
 		return "admin:account/content.tiles";
 	}
-	@RequestMapping("/regist")
-	public String goRegist(){
-		return "admin:account/regist.tiles";
+	@RequestMapping("/open")
+	public String goOpen(){
+		return "admin:account/open.tiles";
 	}
 	@RequestMapping("/deposit")
 	public String goDeposit(){
@@ -37,9 +37,9 @@ public class AccountController {
 	public String goList(){
 		return "admin:account/list.tiles";
 	}
-	@RequestMapping("/find_by_account")
-	public String goFindByAccount(){
-		return "admin:account/search.tiles";
+	@RequestMapping("/find")
+	public String goFind(){
+		return "admin:account/find.tiles";
 	}
 	@RequestMapping("/count")
 	public String goCount(){

@@ -1,18 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-	<section id="admin_content">
-	<h1>관리자 개인화면</h1>
-		<article>
-			<ol id="admin_content_ol">
-				<li><a id = "regist"></a></li>
-				<li><a id = "detail"></a></li>
-				<li><a id = "update"></a></li>
-				<li><a id = "delete"></a></li>
-				<li><a id = "list"></a></li>
-				<li><a id = "find_by"></a></li>
-				<li><a id = "count"></a></li>
-			</ol>
-		</article>
-	<a id="member_content_a_home">
-	<img id="member_content_img_home"/>
-	</a>
-	</section>
+<section id="admin_content">
+<div class="row" style="margin-top:50px;">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img id="memberMgmt">
+      <div class="caption">
+        <h1>Member Manage</h1><br/>
+        <p>등록되어있는 회원들의 목록을 관리합니다.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img id="gradeMgmt">
+      <div class="caption">
+        <h1>Grade Manage</h1><br/>
+        <p>등록되어있는 회원들의 성적을 관리합니다.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img id="accountMgmt">
+      <div class="caption">
+        <h1>Account Manage</h1><br/>
+        <p>등록되어있는 회원들의 계좌를 관리합니다.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>

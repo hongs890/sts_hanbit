@@ -1,13 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<section id="member_login">
+<div>
+<img id="member_login_img">
+</div>
+<div>
 
-<div class="box">
-		<form action="${context }/member.do" method="post">
-			<span class="meta">ID</span><input type="text" name="id"/><br/>
-			<span class="meta">비밀번호</span><input type="password" name="pw"/><br/><br/>
+<form id="member_login_form">
+<h1>Login</h1><br/>
+		<div><label for="exampleInputEmail1">ID</label><div><input type="text"></div></div>
+		<div><label for="exampleInputEmail1">PW</label><div><input type="text"></div></div>
 			<input type="hidden" name="directory" value="global" />
 			<input type="hidden" name="action" value="login" />
-			<input type="submit" value="로그인" />
-			<input type="reset" value="취소">
-		</form> <br/>
-	<a id="member_content_a_home"><img id="member_content_img_home"/></a>
+			<input id="bt_login" type="submit" value="Login" />
+			<input id="bt_cancel" type="reset" value="Cancel" />
+		</form>
 </div>
+</section>

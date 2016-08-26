@@ -1,24 +1,34 @@
 var app = (function(){
 	var init = function(context){
-		onCreate();
 		session.init(context);
 		member.init();
 		user.init();
 		account.init();
 		kaup.init();
 		grade.init();
+		navi.init();
+		admin.init();
+		onCreate();
+		
 	};
 	var context = function(){return session.getContextPath();};
 	var js = function(){return sessionStorage.getItem('js');};
 	var css = function() {return sessionStorage.getItem('css');};
 	var img = function() {return sessionStorage.getItem('img');};
 	var setContentView = function(){
-		$('#global_content').addClass('text_center').css('font-size','30px');
-		$('#global_content > h2').css('font-size','50px').text('서비스를 이용하려면 회원가입이 필요합니다');
+		$('#header_brand').attr('src',app.img()+'/mark.png').css('height','50px').css('width','50px').css('alt','Brand');
+		$('#header_admin_img').attr('src',app.img()+'/admin.png').css('height','50px').css('width','50px');
+		$('#footer').addClass('footer');
+		$('#global_content').addClass('media').addClass('text_center').css('font-size','30px');
+		$('#global_content > div').addClass('media-left');
+		$('#global_content > div > div').addClass('media-body');
+		$('#global_content_img').attr('src',app.img()+'/main.png').addClass('media-object').css('height','400px').css('width','500px').css('margin-top','150px').css('margin-left','100px');
+		$('#global_content h2').addClass('media-heading').css('font-size','50px').css('margin-top','200px').css('margin-left','50px').text('HANBIT ACADEMY');
+		$('#global_content h4').text('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, ');
 		$('#global_content a').addClass('cursor_pointer');
-		$('#global_content_a_regist').text('Sign Up').click(function(){controller.move('member','regist')});
-		$('#global_content_a_login').text('Login').click(function(){controller.move('member','login')});
-		$('#global_content_a_admin').text('Admin').click(function(){admin.check()});};
+		$('#global_content_a_regist').addClass('btn').addClass('btn-warning').text('Sign Up').click(function(){controller.move('member','regist')});
+		$('#global_content_a_login').addClass('btn').addClass('btn-warning').text('Login').click(function(){controller.move('member','login')});
+		$('#global_content_a_admin').addClass('btn').addClass('btn-warning').text('Admin').click(function(){admin.check()});};
 	var onCreate = function() {
 		setContentView();
 		$('#title').click(function(){controller.home();});
@@ -26,14 +36,39 @@ var app = (function(){
 		$('#a_grade').click(function(){controller.move('grade','main');});
 		$('#a_account').click(function(){controller.move('account','main');});
 		$('#a_school').click(function(){controller.move('global','school_info');});}
-	return {init:init, context : context,css : css,js : js,img : img,onCreate : onCreate,setContentView : setContentView}})();
+	return {init:init, context : context,css : css,js : js,img : img,onCreate : onCreate}})();
 var admin = (function() {
 	var _pass;
 	var getPass = function(){return this._pass;};
 	var setPass = function(pass){ this._pass = pass;};
+	var init = function(){onCreate();};
+	var setContentView = function(){
+		$('#admin_content h1').addClass('text_center');
+		$('#admin_content p').addClass('text_center');
+		$('#admin_content #memberMgmt').attr('src',app.img()+'/membermgmt.png').css('width','500px');
+		$('#admin_content #gradeMgmt').attr('src',app.img()+'/grademgmt.png').css('width','500px');
+		$('#admin_content #accountMgmt').attr('src',app.img()+'/bankmgmt.png').css('width','500px');
+		$('#account_open').addClass('media').addClass('text_center');
+		$('#account_open  form').css('margin-top','150px');
+		$('#account_open > div').addClass('media-left');
+		$('#account_open > div > div').addClass('media-body');
+		$('#account_open_img').attr('src',app.img()+'/account.jpg').addClass('media-object').css('height','400px').css('width','500px').css('margin-top','100px').css('margin-left','100px').css('margin-right','140px');
+	
+	};
+	var onCreate = function(){
+		setContentView();
+		$('#admin_nav #member_mgmt #list').click(function(){controller.move('member','list')});
+		$('#admin_nav #member_mgmt #find_by').click(function(){controller.move('member','find_by')});
+		$('#admin_nav #member_mgmt #count').click(function(){controller.move('member','count') });
+		$('#admin_nav #account_mgmt #list').click(function(){controller.move('account','list') });
+		$('#admin_nav #account_mgmt #open').click(function(){controller.move('account','open') });
+		$('#admin_nav #account_mgmt #delete').click(function(){controller.move('account','delete')});
+		$('#admin_nav #account_mgmt #find').click(function(){controller.move('account','find') });
+		$('#admin_nav #account_mgmt #count').click(function(){controller.move('account','count')});
+	
+		};
 	return{	
-		getPass : getPass,setPass : setPass,
-		init : function(){$('#a_admin').click(function(){});},
+		getPass : getPass,setPass : setPass, init : init,
 		check : function(){	
 			setPass(1);
 			var isAdmin = confirm('관리자입니까?');
@@ -52,6 +87,7 @@ var user = (function(){
 	var setContentView = function(){
 		$('#member_content_img_member').attr('src',app.img()+'/member.png').css('width','30px').css('alt','home');
 		$('#member_content_img_home').attr('src',app.img()+'/home.png').css('width','30px').css('alt','home');
+		
 	};
 	var onCreate = function(){
 		setContentView();
@@ -84,6 +120,8 @@ var account = (function(){
 		$('#bt_make_account').click(this.spec());
 		$('#bt_deposit').click(this.deposit());
 		$('#bt_withdraw').click(this.withdraw());	
+		
+		
 	};
 	return{
 		setAccountNo : setAccountNo,getAccountNo : getAccountNo,setMoney : setMoney,getMoney : getMoney,
@@ -138,19 +176,31 @@ var member = (function(){
 		$('#member_content_ol > li:nth(6) > a').text('List').addClass('remove_underline');
 		$('#member_content_ol > li:nth(7) > a').text('Search').addClass('remove_underline');
 		$('#member_content_ol > li:nth(8) > a').text('Count').addClass('remove_underline');
-		$('#member_regist').addClass('box');
+		$('#member_regist').addClass('media').addClass('text_center').css('font-size','30px');
+		$('#member_regist > div').addClass('media-left');
+		$('#member_regist > div > div').addClass('media-body');
+		$('#member_regist_img').attr('src',app.img()+'/main.png').addClass('media-object').css('height','400px').css('width','500px').css('margin-top','150px').css('margin-left','100px').css('margin-right','200px');
 		$('#member_regist span').addClass('float_left').addClass('text_left').css('width','200px');
 		$('#member_regist #bt_join').addClass('btn').addClass('btn-warning');
 		$('#member_regist #bt_cancel').addClass('btn').addClass('btn-warning');
-		$('#member_regist_form').addClass('form-horizontal');
+		$('#member_regist_form').addClass('form-horizontal').css('margin-top','60px');
 		$('#member_regist_form > div').addClass('form-group').addClass('form-group-lg');
 		$('#member_regist_form > div > label').addClass('col-sm-2').addClass('control-label');
 		$('#member_regist_form > div > div').addClass('col-sm-10');
 		$('#member_regist_form > div > div > input').addClass('form-control');
-		$('#member_regist #rd_major').addClass('checkbox');
-		$('#member_regist #rd_major > label').addClass('radio-inline');
-		$('#member_regist #ck_subject').addClass('checkbox');
-		$('#member_regist #ck_subject > label').addClass('checkbox-inline');
+		$('#rd_major > label').css('font-size','20px');
+		$('#ck_subject > label').css('font-size','15px');
+		$('#member_login').addClass('media').addClass('text_center').css('font-size','30px');
+		$('#member_login > div').addClass('media-left');
+		$('#member_login > div > div').addClass('media-body');
+		$('#member_login_img').attr('src',app.img()+'/main.png').addClass('media-object').css('height','400px').css('width','500px').css('margin-top','150px').css('margin-left','100px');
+		$('#member_login #bt_login').addClass('btn').addClass('btn-warning');
+		$('#member_login #bt_cancel').addClass('btn').addClass('btn-warning');
+		$('#member_login_form').addClass('form-horizontal').css('margin-top','180px').css('margin-left','300px');
+		$('#member_login_form > div').addClass('form-group').addClass('form-group-lg');
+		$('#member_login_form > div > label').addClass('col-sm-2').addClass('control-label');
+		$('#member_login_form > div > div').addClass('col-sm-10');
+		$('#member_login_form > div > div > input').addClass('form-control');
 	};
 	var onCreate = function(){
 		setContentView();
@@ -302,4 +352,17 @@ var util = (function(){
 		return typeof value === 'number' && isFinite(value);
 	}
 }
+})();
+var navi = (function(){
+	var init = function(){onCreate();};
+	var setContentView = function (){
+		$('#nav ul').addClass('list_style_none').addClass('over_hidden').addClass('bgcolor_676767').css('margin','0').css('padding','0');
+		$('#nav li').addClass('float_left');
+		$('#nav li a').addClass('text_center').addClass('remove_underline').addClass('_white').addClass('display_block').css('padding','14px 16px');
+		$('#nav li a:hover:not(.active)').addClass('bgcolor_white').css('font-weight','bold');
+	};
+	var onCreate = function (){
+		setContentView();
+	};
+	return{init:init};
 })();

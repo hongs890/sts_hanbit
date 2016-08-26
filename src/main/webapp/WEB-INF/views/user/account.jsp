@@ -1,7 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="../global/header.jsp" />
-<jsp:include page="../global/nav.jsp" />
-
 <div id="container" style='width:100%'>
 <h1 style='margin:0 auto; width: 250px'>Creator note</h1>
 <section class="formbox">
@@ -26,7 +23,3 @@
 	balance : <article id="rest_money"></article>
 </section>
 </div>
-<jsp:include page="../global/footer.jsp" />
-<jsp:include page="../global/end.jsp" />
-<script src="${js}/douglas.js"></script>
-<script>account.init();</script>

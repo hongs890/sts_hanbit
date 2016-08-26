@@ -34,7 +34,7 @@ public class HomeController {
 	}
 	@RequestMapping("global/school_info")
 	public String schoolInfo(){
-		return "user:global/school_info.tiles";
+		return "public:global/school_info.tiles";
 	}
 	
 }

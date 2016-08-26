@@ -1,4 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<div id="header">
-<h1><a href="#" id="title" style="color: white; text-decoration: none;">Student Management System</a></h1>
-</div>
+<nav class="navbar navbar-default" style="height:50px;">
+  <div class="container-fluid">
+    <div class="navbar-header">
+   <a href="#" id="title"><img id="header_brand"></a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a id="a_school">Intro</a></li>
+         <li><a href="#">Map</a></li>
+        <li class="dropdown">
+          </ul>
+
+    </div>
+  </div>
+</nav>

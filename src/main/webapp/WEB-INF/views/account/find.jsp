@@ -5,8 +5,8 @@
 		<div class="col-lg-12">
 		<select style='width:100px;height:30px'>
   			<option value="id">ID</option>
-  			<option value="name">NAME</option>
-  			<option value="gender">GENDER</option>
+  			<option value="name">Username</option>
+  			<option value="gender">Account No</option>
 		</select>
      	<input type="text" class="form-control"/>
     	<input type="hidden" name="action" value="find_by_id" />

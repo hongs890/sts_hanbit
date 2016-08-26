@@ -1,17 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<div class="box">
-<div class="panel panel-default">
-  <div class="panel-heading">Student List</div>
-  <div class="panel-body">
-  </div>
-<table id="member_list" class="table">
+
+<div style="text-align: center">
+<table id="member_list">
 	<tr>
 	    <td>ID</td>
-	    <td>Name</td>
-	    <td>Regist Date</td>
-	    <td>Birth</td>
+	    <td>이름</td>
+	    <td>등록일</td>
+	    <td>생년월일</td>
 	    <td>E-mail</td>
-	    <td>Phone</td>
+	    <td>전화번호</td>
 	</tr>
 	<c:forEach var="member" items="${list}">
 	<tr>
@@ -24,10 +21,7 @@
 	</tr>
 	</c:forEach>
 </table>
-</div>
-
-
-	<a id="member_content_a_member"><img id="member_content_img_member"/></a>
+		<a id="member_content_a_member"><img id="member_content_img_member"/></a>
 	<a id="member_content_a_home"><img id="member_content_img_home"/></a>
 </div>
 

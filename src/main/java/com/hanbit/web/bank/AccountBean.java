@@ -2,15 +2,7 @@
  * 
  */
 package com.hanbit.web.bank;
-
 import java.io.Serializable;
-
-/**
- * @date : 2016. 6. 16.
- * @author: 배근홍
- * @file : Account.java
- * @story :
- */
 public class AccountBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int accountNo, money; 
