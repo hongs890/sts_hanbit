@@ -34,7 +34,7 @@ public class AccountDAO {
 			Constants.USER_PW).getConnection();
 	}
 	// 1번
-	public int openAccount(AccountBean bean){
+	public int openAccount(AccountVO bean){
 		int result = 0;
 		String sql = "insert into bank(id, account_no, money) values(?, ?, ?)";
 		try {
@@ -82,7 +82,7 @@ public class AccountDAO {
 		return result;
 	}
 	//4번 
-	public int updateAccount(AccountMemberBean acc){
+	public int updateAccount(AccountMemberVO acc){
 		int result = 0;
 		String sql = "update member set pw = ? where id = ?";
 		try {
@@ -114,13 +114,13 @@ public class AccountDAO {
 	}
 	//6번
 	public List<?> findAccount (){
-		List<AccountMemberBean> list = new ArrayList<AccountMemberBean>();
+		List<AccountMemberVO> list = new ArrayList<AccountMemberVO>();
 		String sql = "select account, money, id, name, ssn from bank_member order by name";
 		try {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()){
-				AccountMemberBean bean = new AccountMemberBean();
+				AccountMemberVO bean = new AccountMemberVO();
 				bean.setAccountNo(rs.getInt("ACCOUNT"));
 				bean.setMoney(rs.getInt("MONEY"));
 				bean.setId(rs.getString("ID"));
@@ -135,15 +135,15 @@ public class AccountDAO {
 		return list;
 	}
 	//7번
-	public AccountMemberBean findByAcc (int account){
-		AccountMemberBean result = null;
+	public AccountMemberVO findByAcc (int account){
+		AccountMemberVO result = null;
 		String sql = "select * from bank_member where account = ?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, account);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				AccountMemberBean bean = new AccountMemberBean();
+				AccountMemberVO bean = new AccountMemberVO();
 				bean.setAccountNo(rs.getInt("ACCOUNT"));
 				bean.setMoney(rs.getInt("MONEY"));
 				bean.setId(rs.getString("ID"));
@@ -161,14 +161,14 @@ public class AccountDAO {
 	}
 	//8번
 	public List<?> findByName(String name){
-		List<AccountMemberBean> list = new ArrayList<AccountMemberBean>();
+		List<AccountMemberVO> list = new ArrayList<AccountMemberVO>();
 		String sql = "select * from bank_member where name = ?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, name);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				AccountMemberBean bean = new AccountMemberBean();
+				AccountMemberVO bean = new AccountMemberVO();
 				bean.setAccountNo(rs.getInt("ACCOUNT"));
 				bean.setMoney(rs.getInt("MONEY"));
 				bean.setId(rs.getString("ID"));
@@ -201,13 +201,13 @@ public class AccountDAO {
 		return result;
 	}
 	public Map<?, ?> selectMap() {
-		Map<String, AccountMemberBean> map = new HashMap<String, AccountMemberBean>();
+		Map<String, AccountMemberVO> map = new HashMap<String, AccountMemberVO>();
 		String sql = "select * from bank_member";
 		try {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()){
-				AccountMemberBean am = new AccountMemberBean();
+				AccountMemberVO am = new AccountMemberVO();
 					am.setAccountNo(rs.getInt("ACCOUNT"));
 					am.setId(rs.getString("ID"));
 					am.setPw(rs.getString("PW"));

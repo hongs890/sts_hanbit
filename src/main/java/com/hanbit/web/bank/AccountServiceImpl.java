@@ -21,11 +21,11 @@ public class AccountServiceImpl implements AccountService {
 		return instence;
 	}
 	private AccountServiceImpl() {
-		new HashMap<String,AccountMemberBean>();
+		new HashMap<String,AccountMemberVO>();
 	}
 
 	@Override
-	public String openAccount(AccountBean acc) {
+	public String openAccount(AccountVO acc) {
 		String result = "";
 		acc.setAccountNo((int) (Math.random()*999999)+100000);
 		acc.setMoney(0);
@@ -52,7 +52,7 @@ public class AccountServiceImpl implements AccountService {
 		return result;
 	}
 	@Override
-	public String updateAccount(AccountMemberBean acc) {
+	public String updateAccount(AccountMemberVO acc) {
 		return String.valueOf(dao.updateAccount(acc));
 	}
 	@Override
@@ -72,7 +72,7 @@ public class AccountServiceImpl implements AccountService {
 		return list;
 	}
 	@Override
-	public AccountMemberBean findByAccountNo(int account) {
+	public AccountMemberVO findByAccountNo(int account) {
 		return dao.findByAcc(account);
 	}
 	@Override
@@ -85,7 +85,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 	@Override
 	public Map<?, ?> map() {
-		map = new HashMap<String,AccountMemberBean>();
+		map = new HashMap<String,AccountMemberVO>();
 		map = dao.selectMap();	
 		return map;
 	}

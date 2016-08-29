@@ -5,9 +5,9 @@ import java.util.Map;
 
 import com.hanbit.web.bank.AccountService;
 import com.hanbit.web.bank.AccountServiceImpl;
-import com.hanbit.web.subject.SubjectBean;
+import com.hanbit.web.subject.SubjectVO;
 import com.hanbit.web.subject.SubjectDAO;
-import com.hanbit.web.subject.SubjectMember;
+import com.hanbit.web.subject.SubjectMemberVO;
 
 
 /**
@@ -16,23 +16,25 @@ import com.hanbit.web.subject.SubjectMember;
  * @file  : StudentServiceImpl.java
  * @story :
  */
+
+
 public class MemberServiceImpl implements MemberService {
 	
-	private MemberDAO dao = MemberDAO.getInstance();
+	private MemberDAOImpl dao = null;
 	private SubjectDAO subjDao = SubjectDAO.getInstance();
 	private AccountService accService = AccountServiceImpl.getInstence();
-	private MemberBean session;
+	private MemberVO session;
 	private static MemberServiceImpl instanceImpl = new MemberServiceImpl();
 	
 	private MemberServiceImpl() {
-		session = new MemberBean();
+		session = new MemberVO();
 	}
 
-	public MemberBean getSession() {
+	public MemberVO getSession() {
 		return session;
 	}
 	
-	public void logoutSession(MemberBean member) {
+	public void logoutSession(MemberVO member) {
 		if (member.getId().equals(session.getId()) && member.getPw().equals(session.getPw())) {
 			session = null;
 		}
@@ -43,7 +45,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public String regist(MemberBean mem) {
+	public String regist(MemberVO mem) {
 		String msg = "";
 		if (dao.insert(mem)==1) {
 			msg = dao.findById(mem.getId()).getName();
@@ -54,14 +56,14 @@ public class MemberServiceImpl implements MemberService {
 	
 
 	@Override
-	public void update(MemberBean mem) {
+	public void update(MemberVO mem) {
 		mem.setId(session.getId());
 		dao.update(mem);
 		session = dao.findById(mem.getId());
 	}
 
 	@Override
-	public void delete(MemberBean mem) {
+	public void delete(MemberVO mem) {
 		dao.delete(mem);
 		session = dao.findById(mem.getId());
 	}
@@ -71,7 +73,7 @@ public class MemberServiceImpl implements MemberService {
 		return dao.count();
 	}
 	@Override
-	public MemberBean detail(String mem) {
+	public MemberVO detail(String mem) {
 		return dao.findById(mem);
 	}
 	public List<?> list() {
@@ -89,9 +91,9 @@ public class MemberServiceImpl implements MemberService {
 		return null;
 	}
 	
-	public SubjectMember login(MemberBean member) {
-		SubjectMember sm = new SubjectMember();
-		SubjectBean sb = new SubjectBean();
+	public SubjectMemberVO login(MemberVO member) {
+		SubjectMemberVO sm = new SubjectMemberVO();
+		SubjectVO sb = new SubjectVO();
 			if (dao.login(member)) {
 				session = dao.findById(member.getId());
 				accService.map();

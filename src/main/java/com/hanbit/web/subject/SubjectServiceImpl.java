@@ -16,7 +16,7 @@ public class SubjectServiceImpl implements SubjectService{
 	}
 	private SubjectServiceImpl() {}
 	
-	public void insert(SubjectBean bean) {
+	public void insert(SubjectVO bean) {
 		dao.insert(bean);
 	}
 

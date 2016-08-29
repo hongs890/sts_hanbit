@@ -18,6 +18,8 @@
 		<jackson-version>2.6.3</jackson-version>
 		<maven-version>3.1.1</maven-version>
 		<tiles-version>3.0.5</tiles-version>
+		<mybatis-spring-version>1.2.2</mybatis-spring-version>
+		<mybatis-version>3.4.1</mybatis-version>
 	</properties>
 	<dependencies>
 		<!-- Spring -->
@@ -63,6 +65,12 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>${spring-version}</version>
 		</dependency>
+		<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-jdbc</artifactId>
+		<version>${spring-version}</version>
+		</dependency>
+		
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -224,13 +232,14 @@
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
-			<version>3.2.7</version>
+			<version>${mybatis-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
-			<version>1.1.1</version>
+			<version>${mybatis-spring-version}</version>
 		</dependency>
+		
 		<!-- upload -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>

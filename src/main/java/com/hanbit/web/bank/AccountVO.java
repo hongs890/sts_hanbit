@@ -3,7 +3,7 @@
  */
 package com.hanbit.web.bank;
 import java.io.Serializable;
-public class AccountBean implements Serializable{
+public class AccountVO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int accountNo, money; 
 	private String id;
