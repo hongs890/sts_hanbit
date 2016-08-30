@@ -28,7 +28,9 @@ xmlns="http://www.springframework.org/schema/mvc"
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
-	<annotation-driven />
+	
+	<context:annotation-config />
+	 <annotation-driven /> 
 	<resources mapping="/resources/**" location="/resources/" />
 	<context:component-scan base-package="com.hanbit.web" />
 	<!--  usetiles -->

@@ -8,8 +8,8 @@
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
 		<config>src/main/webapp/WEB-INF/spring/servlet-context.xml</config>
-		<config>src/main/resources/META-INF/mybatis/member.xml</config>
 		<config>src/main/resources/META-INF/maybatis-context.xml</config>
+		<config>src/main/resources/mapper/member.xml</config>
 	</configs>
 	<autoconfigs>
 		<config>src/main/resources/META-INF/view-context.xml</config>

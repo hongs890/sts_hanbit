@@ -1,4 +1,4 @@
-package com.hanbit.web.bank;
+package com.hanbit.web.account;
 
 /**
  * @date  : 2016. 7. 7.

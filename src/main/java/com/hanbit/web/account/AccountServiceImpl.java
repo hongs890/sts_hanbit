@@ -1,20 +1,18 @@
 /**
  * 
  */
-package com.hanbit.web.bank;
+package com.hanbit.web.account;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @date  : 2016. 6. 20.
- * @author: 배근홍
- * @file  : AccountServiceImpl.java
- * @story : 계좌 인터페이스
- */
+import org.springframework.stereotype.Service;
+
+
+@Service
 public class AccountServiceImpl implements AccountService {
-	AccountDAO dao = AccountDAO.getDao();
+	AccountDAOImpl dao = AccountDAOImpl.getInstance();
 	private Map<?,?> map;
 	private static AccountServiceImpl instence = new AccountServiceImpl();
 	public static AccountServiceImpl getInstence() {

@@ -1,17 +1,19 @@
 package com.hanbit.web.grade;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class GradeServiceImpl implements GradeService{
 
-	GradeDAO dao = GradeDAO.getInstance();
+	GradeDAOImpl dao = GradeDAOImpl.getInstance();
 	
-	private static GradeServiceImpl gradeImpl = new GradeServiceImpl();
+	private static GradeServiceImpl instance = new GradeServiceImpl();
 	private GradeServiceImpl() {}
-	public static GradeServiceImpl getGradeImpl() {
-		return gradeImpl;
+	public static GradeServiceImpl getInstance() {
+		return instance;
 	}
 
 	@Override
@@ -79,10 +81,7 @@ public class GradeServiceImpl implements GradeService{
 	public GradeVO findBySeq(int seq) {
 		return dao.findBySeq(seq);
 	}
-	@Override
-	public int count() {
-		return dao.count();
-	}
+
 	@Override
 	public int count(String findByCount) {
 		return dao.count(findByCount);
@@ -91,6 +90,11 @@ public class GradeServiceImpl implements GradeService{
 	public Map<?, ?> map() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public int count() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

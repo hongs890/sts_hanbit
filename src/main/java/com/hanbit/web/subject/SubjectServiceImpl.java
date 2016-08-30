@@ -1,14 +1,12 @@
 package com.hanbit.web.subject;
 
-/**
- * @date  : 2016. 7. 26.
- * @author: 배근홍
- * @file  : SubjectServiceImpl.java
- * @story  :
- */
+import org.springframework.stereotype.Service;
+
+
+@Service
 public class SubjectServiceImpl implements SubjectService{
 
-	SubjectDAO dao = SubjectDAO.getInstance();
+	SubjectDAOImpl dao = SubjectDAOImpl.getInstance();
 	
 	private static SubjectServiceImpl instance = new SubjectServiceImpl();
 	public static SubjectServiceImpl getInstance() {
@@ -18,6 +16,10 @@ public class SubjectServiceImpl implements SubjectService{
 	
 	public void insert(SubjectVO bean) {
 		dao.insert(bean);
+	}
+	@Override
+	public SubjectVO findById(String id) {
+		return dao.findById(id);
 	}
 
 }

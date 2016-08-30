@@ -201,6 +201,9 @@ var member = (function(){
 		$('#member_login_form > div > label').addClass('col-sm-2').addClass('control-label');
 		$('#member_login_form > div > div').addClass('col-sm-10');
 		$('#member_login_form > div > div > input').addClass('form-control');
+		$('#member_find_form').attr('action',app.context()+'/member/search')
+		$('#member_find_form input[type="hidden"]').attr('name','context').attr('value',app.img());
+		
 	};
 	var onCreate = function(){
 		setContentView();
@@ -215,6 +218,7 @@ var member = (function(){
 		$('#count').click(function(){controller.move('member','count');})
 		$('#member_content_a_member').click(function(){controller.move('member','main')});
 		$('#member_content_a_home').click(function(){controller.home()});
+		$('#member_find_form input[type="submit"]').click(function(){('#member_find_form').submit();})
 	};
 	return{
 		init:init, setAge : setAge,setGender : setGender,setSsn : setSsn,setName : setName,getAge : getAge,getGender : getGender,getSsn : getSsn,getName : getName,

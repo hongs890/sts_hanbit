@@ -10,9 +10,9 @@
 	<table id="member_detail">
 		<tr>
 			<td rowspan="6" style="width:30%">
-			<img src="${img}/member/${user.img}" alt="W3Schools.com" width="200" height="200"></td>
+			<img src="${img}/member/${member.profileImg}" alt="W3Schools.com" width="200" height="200"></td>
 			<td style="width:20%" class="font_bold bg_color_yellow">ID</td>
-			<td style="width:40%">${user.id}</td>
+			<td style="width:40%">${member.id}</td>
 		</tr>
 		<tr>
 			<td class="font_bold bg_color_yellow">비밀번호</td>
@@ -20,35 +20,35 @@
 		</tr>
 		<tr>
 			<td class="font_bold bg_color_yellow">이 름</td>
-			<td>${user.name}</td>
+			<td>${member.name}</td>
 		</tr>
 		<tr>	
 			<td class="font_bold bg_color_yellow">성 별</td>
-			<td>${user.gender}</td>
+			<td>${member.gender}</td>
 		</tr>
 		<tr>
 			<td class="font_bold bg_color_yellow">이메일</td>
-			<td>${user.email}</td>
+			<td>${member.email}</td>
 		</tr>
 		<tr>
 			<td class="font_bold bg_color_yellow">핸드폰 번호</td>
-			<td>${user.phone}</td>
+			<td>${member.phone}</td>
 		</tr>
 		<tr>
 			<td class="font_bold bg_color_yellow">전공과목</td>
-			<td colspan="2">${user.major}</td>
+			<td colspan="2">test</td>
 		</tr>
 		<tr>
 			<td class="font_bold bg_color_yellow">수강과목</td>
-			<td colspan="2">${user.subjects}</td>
+			<td colspan="2">test</td>
 		</tr>
 		<tr>
 			<td class="font_bold bg_color_yellow">생년월일</td>
-			<td colspan="2">${user.ssn.substring(0,6)}</td>
+			<td colspan="2">${member.ssn.substring(0,6)}</td>
 		</tr>
 		<tr>
 			<td class="font_bold bg_color_yellow">등록일</td>
-			<td colspan="2">${user.reg}</td>
+			<td colspan="2">${member.regDate}</td>
 		</tr>
 	</table>
 	<br/> 

@@ -3,31 +3,25 @@ package com.hanbit.web.member;
 import java.util.List;
 import java.util.Map;
 
-import com.hanbit.web.bank.AccountService;
-import com.hanbit.web.bank.AccountServiceImpl;
-import com.hanbit.web.subject.SubjectVO;
-import com.hanbit.web.subject.SubjectDAO;
+import org.springframework.stereotype.Service;
+
+import com.hanbit.web.account.AccountService;
+import com.hanbit.web.account.AccountServiceImpl;
+import com.hanbit.web.subject.SubjectDAOImpl;
 import com.hanbit.web.subject.SubjectMemberVO;
+import com.hanbit.web.subject.SubjectVO;
 
 
-/**
- * @date  : 2016. 6. 20.
- * @author: 배근홍
- * @file  : StudentServiceImpl.java
- * @story :
- */
-
-
+@Service
 public class MemberServiceImpl implements MemberService {
 	
-	private MemberDAOImpl dao = null;
-	private SubjectDAO subjDao = SubjectDAO.getInstance();
+	private MemberDAOImpl dao;
+	private SubjectDAOImpl subjDao = SubjectDAOImpl.getInstance();
 	private AccountService accService = AccountServiceImpl.getInstence();
 	private MemberVO session;
-	private static MemberServiceImpl instanceImpl = new MemberServiceImpl();
-	
+	private static MemberServiceImpl instance = new MemberServiceImpl();
 	private MemberServiceImpl() {
-		session = new MemberVO();
+		dao = MemberDAOImpl.getInstance();
 	}
 
 	public MemberVO getSession() {
@@ -40,8 +34,8 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 	
-	public static MemberServiceImpl getInstanceImpl() {
-		return instanceImpl;
+	public static MemberServiceImpl getInstance() {
+		return instance;
 	}
 	
 	@Override
@@ -73,7 +67,7 @@ public class MemberServiceImpl implements MemberService {
 		return dao.count();
 	}
 	@Override
-	public MemberVO detail(String mem) {
+	public MemberVO findById(String mem) {
 		return dao.findById(mem);
 	}
 	public List<?> list() {

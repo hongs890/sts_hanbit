@@ -18,7 +18,7 @@ public interface MemberService extends CommonService{
 	public String regist(MemberVO mem);
 	public void update(MemberVO mem);
 	public void delete(MemberVO mem);
-	public MemberVO detail(String mem);
+	public MemberVO findById(String mem);
 	public SubjectMemberVO login(MemberVO member);
 	public MemberVO getSession();
 	public void logoutSession(MemberVO member);

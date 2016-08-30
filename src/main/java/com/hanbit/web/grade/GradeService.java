@@ -1,8 +1,5 @@
 package com.hanbit.web.grade;
 
-import java.sql.SQLException;
-import java.util.List;
-
 import com.hanbit.web.util.CommonService;
 
 public interface GradeService extends CommonService{

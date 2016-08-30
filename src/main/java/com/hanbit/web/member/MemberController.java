@@ -2,17 +2,35 @@ package com.hanbit.web.member;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.hanbit.web.home.HomeController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
 @RequestMapping("/member")
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	@Autowired MemberServiceImpl service;
+	
+	@RequestMapping("/search")
+	public String find(@RequestParam("keyword") String keyword,
+			@RequestParam("search_option") String option,
+			@RequestParam("context")String context, Model model){
+	
+		MemberVO member = service.findById(keyword);
+		logger.info("Test (vo.getName) :{}",member.getName());
+		logger.info("Test (keyword) : {}",keyword);
+		logger.info("Test (option) : {}",option);
+		logger.info("Test (context) : {}",context);
+		model.addAttribute("member",member);
+		model.addAttribute("img", context);
+		
+		return "admin:member/detail.tiles";
+	}
+	
 	@RequestMapping("/main")
 	public String goMain() {
 		logger.info("MemberController ! goMain..");

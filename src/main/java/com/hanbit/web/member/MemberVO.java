@@ -17,7 +17,6 @@ public class MemberVO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String id, pw, name, regDate, gender, ssn, profileImg, email, phone;
 	private int birth;
-	
 	public MemberVO() {}
 	
 	public MemberVO(String id,String name, String pw, String ssn, String email, String profileImg, String phone) {

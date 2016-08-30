@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.hanbit.web.bank;
+package com.hanbit.web.account;
 import java.io.Serializable;
 public class AccountVO implements Serializable{
 	private static final long serialVersionUID = 1L;
