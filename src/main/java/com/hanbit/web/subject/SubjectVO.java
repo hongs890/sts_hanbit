@@ -2,12 +2,9 @@ package com.hanbit.web.subject;
 
 import java.io.Serializable;
 
-/**
- * @date  : 2016. 7. 26.
- * @author: 배근홍
- * @file  : SubjectBean.java
- * @story  :
- */
+import org.springframework.stereotype.Component;
+
+@Component
 public class SubjectVO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	

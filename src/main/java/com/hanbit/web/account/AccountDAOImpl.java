@@ -88,9 +88,4 @@ public class AccountDAOImpl implements AccountDAO{
 			}
 		
 	}
-	@Override
-	public Map<?, ?> selectMap() {
-		SqlSession session = sqlSessionFactory.openSession();
-		return session.selectMap("","");
-	};
 }

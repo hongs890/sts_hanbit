@@ -1,11 +1,8 @@
 package com.hanbit.web.account;
 
-/**
- * @date  : 2016. 7. 7.
- * @author: 배근홍
- * @file  : AccountMemberBean.java
- * @story  :
- */
+import org.springframework.stereotype.Component;
+
+@Component
 public class AccountMemberVO {
 	private String id, pw, name, regDate, gender, ssn;
 	private int birth, accountNo, money;

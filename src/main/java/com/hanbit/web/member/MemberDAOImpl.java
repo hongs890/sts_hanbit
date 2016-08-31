@@ -13,6 +13,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.hanbit.web.subject.SubjectMemberVO;
+
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {
@@ -59,7 +61,7 @@ public class MemberDAOImpl implements MemberDAO {
 		return session.selectList("");
 	}
 	@Override
-	public MemberVO findById(String id) {
+	public SubjectMemberVO findById(String id) {
 		SqlSession session = sqlSessionFactory.openSession();
 		try{
 		return session.selectOne(NAMESPACE + "findById", id);
@@ -78,23 +80,16 @@ public class MemberDAOImpl implements MemberDAO {
 		return session.selectOne("");
 	}
 	@Override
-	public boolean login(MemberVO param) {
+	public boolean login(SubjectMemberVO param) {
 		boolean loginOk= false;
-		if(param.getId()!=null 
-				&& param.getPw()!=null 
-				&& this.existId(param.getId())){
-			MemberVO member = this.findById(param.getId());
+		System.out.println("DAO디버깅 : "+param.getId()+param.getPw());
+		if(param.getId()!=null && param.getPw()!=null && this.findById(param.getId()) !=null){
+			SubjectMemberVO member = this.findById(param.getId());
 			if(member.getPw().equals(param.getPw())){
 				loginOk = true;
 			}
-		
 		}
 		return loginOk;
 	}
-	@Override
-	public boolean existId(String id){
-		SqlSession session = sqlSessionFactory.openSession();
-		int temp = session.selectOne("",id);
-		return false;
-	}
+
 }

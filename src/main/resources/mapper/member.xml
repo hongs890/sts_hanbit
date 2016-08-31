@@ -4,7 +4,7 @@
 <select id="list" resultType="com.hanbit.web.member.MemberVO">
 select * from member
 </select>
-<select id="findById" parameterType="string" resultType="com.hanbit.web.member.MemberVO">
+<select id="findById" parameterType="string" resultType="com.hanbit.web.subject.SubjectMemberVO">
 select 
 id as id,
 pw as pw,
@@ -21,10 +21,6 @@ select * from member where name = #{name}
 <select id="count" resultType="int">
 select count(*) as count from member
 </select>
-<select id="existId" parameterType="string" resultType="int">
-select count(*) as count from member where id = #{id}
-</select>
-
 <insert id="insert" parameterType="com.hanbit.web.member.MemberVO">
 insert into member(id,pw,name,reg_date,ssn,email,profile_img,phone) 
 values(#{id},#{pw},#{name},#{regDate},#{ssn},#{email},#{profileImg},#{phone})

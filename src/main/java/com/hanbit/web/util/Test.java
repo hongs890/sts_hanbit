@@ -4,13 +4,13 @@ import com.hanbit.web.account.AccountServiceImpl;
 import com.hanbit.web.grade.GradeServiceImpl;
 import com.hanbit.web.grade.GradeVO;
 import com.hanbit.web.member.MemberServiceImpl;
-import com.hanbit.web.member.MemberVO;
+import com.hanbit.web.subject.SubjectMemberVO;
 import com.hanbit.web.subject.SubjectServiceImpl;
 import com.hanbit.web.subject.SubjectVO;
 
 public class Test {
 	public String test(){
-		MemberVO m = MemberServiceImpl.getInstance().findById("hong");
+		SubjectMemberVO m = MemberServiceImpl.getInstance().findById("hong");
 		return m.getName();
 	}
 	public String test2(){

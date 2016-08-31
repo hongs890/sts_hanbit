@@ -13,5 +13,4 @@ public interface AccountDAO {
 	public AccountMemberVO findByAcc (int account);
 	public List<?> findByName(String name);
 	public int count();
-	public Map<?, ?> selectMap();
 }

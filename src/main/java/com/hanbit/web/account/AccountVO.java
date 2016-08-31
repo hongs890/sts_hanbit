@@ -3,6 +3,10 @@
  */
 package com.hanbit.web.account;
 import java.io.Serializable;
+
+import org.springframework.stereotype.Component;
+
+@Component
 public class AccountVO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int accountNo, money; 

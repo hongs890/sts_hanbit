@@ -15,6 +15,7 @@ var app = (function(){
 	var js = function(){return sessionStorage.getItem('js');};
 	var css = function() {return sessionStorage.getItem('css');};
 	var img = function() {return sessionStorage.getItem('img');};
+	var boot_img = function() {return sessionStorage.getItem('boot_img');};
 	var setContentView = function(){
 		$('#header_brand').attr('src',app.img()+'/mark.png').css('height','50px').css('width','50px').css('alt','Brand');
 		$('#header_admin_img').attr('src',app.img()+'/admin.png').css('height','50px').css('width','50px');
@@ -35,7 +36,7 @@ var app = (function(){
 		$('#a_member').click(function(){controller.move('member','main');});
 		$('#a_grade').click(function(){controller.move('grade','main');});
 		$('#a_account').click(function(){controller.move('account','main');});
-		$('#a_school').click(function(){controller.move('global','school_info');});}
+		$('#a_school').click(function(){controller.move('public','school_info');});}
 	return {init:init, context : context,css : css,js : js,img : img,onCreate : onCreate}})();
 var admin = (function() {
 	var _pass;
@@ -53,7 +54,7 @@ var admin = (function() {
 		$('#account_open > div').addClass('media-left');
 		$('#account_open > div > div').addClass('media-body');
 		$('#account_open_img').attr('src',app.img()+'/account.jpg').addClass('media-object').css('height','400px').css('width','500px').css('margin-top','100px').css('margin-left','100px').css('margin-right','140px');
-	
+		$('#admin_header #exit').addClass('cursor_pointer');
 	};
 	var onCreate = function(){
 		setContentView();
@@ -65,7 +66,7 @@ var admin = (function() {
 		$('#admin_nav #account_mgmt #delete').click(function(){controller.move('account','delete')});
 		$('#admin_nav #account_mgmt #find').click(function(){controller.move('account','find') });
 		$('#admin_nav #account_mgmt #count').click(function(){controller.move('account','count')});
-	
+		$('#admin_header #exit').click(function(){controller.home()});
 		};
 	return{	
 		getPass : getPass,setPass : setPass, init : init,
@@ -87,10 +88,11 @@ var user = (function(){
 	var setContentView = function(){
 		$('#member_content_img_member').attr('src',app.img()+'/member.png').css('width','30px').css('alt','home');
 		$('#member_content_img_home').attr('src',app.img()+'/home.png').css('width','30px').css('alt','home');
-		
+		$('#user_header #exit').addClass('cursor_pointer');
 	};
 	var onCreate = function(){
 		setContentView();
+		$('#user_title').click(function(){controller.move('member','main');});
 		$('#bt_bom').click(function(){controller.move('','bom');});
 		$('#bt_dom').click(function(){controller.move('','dom');});
 		$('#bt_kaup').click(function(){controller.move('','kaup');});
@@ -103,6 +105,7 @@ var user = (function(){
 		$('#a_list').click(function(){controller.move('account','list');})
 		$('#a_find_by_account').click(function(){controller.move('account','find_by_account');})
 		$('#a_count').click(function(){controller.move('account','count');})
+		$('#user_header #exit').click(function(){controller.home()});
 	};
 	return{init : init};
 })();
@@ -333,7 +336,7 @@ var session = (function(){
 		sessionStorage.setItem('context',context);
 		sessionStorage.setItem('js',context+'/resources/js');
 		sessionStorage.setItem('css',context+'/resources/css');
-		sessionStorage.setItem('img',context+'/resources/img');
+		sessionStorage.setItem('img',context+'/resources/img/default');
 		};
 	var getContextPath = function(){return sessionStorage.getItem('context')};
 	return{init:init, getContextPath:getContextPath}})();

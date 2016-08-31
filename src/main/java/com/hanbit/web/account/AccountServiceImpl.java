@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class AccountServiceImpl implements AccountService {
 	AccountDAOImpl dao = AccountDAOImpl.getInstance();
-	private Map<?,?> map;
 	private static AccountServiceImpl instence = new AccountServiceImpl();
 	public static AccountServiceImpl getInstence() {
 		return instence;
@@ -83,8 +82,8 @@ public class AccountServiceImpl implements AccountService {
 	}
 	@Override
 	public Map<?, ?> map() {
-		map = new HashMap<String,AccountMemberVO>();
-		map = dao.selectMap();	
-		return map;
+		// TODO Auto-generated method stub
+		return null;
 	}
+
 }
