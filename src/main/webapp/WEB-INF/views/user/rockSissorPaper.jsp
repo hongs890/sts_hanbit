@@ -8,14 +8,10 @@
 		<p>이름</p><input type="text" name="name" id="name" />
 		<p>키</p><input type="text" name="height" id="height" />
 		<p>몸무게</p><input type="text" name="weight" id="weight" />
-		<input type="button" value="결과보기" id="bt"/>
+		<input type="button" value="결과보기" id="kaup_calc"/>
 	</form>
 </section>
 <section>
 	<p>결과 : </p> <span id="result"></span>
 </section>
 </div>
-
-<script>
-	window.onload=init();
-</script>

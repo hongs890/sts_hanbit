@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="box">
 <div class="panel panel-default">
-  <div class="panel-heading">Student List</div>
+  <div class="panel-heading">Account List</div>
   <div class="panel-body">
   </div>
 <table id="member_list" class="table">

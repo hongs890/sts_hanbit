@@ -55,6 +55,8 @@ public class MemberController {
 		}
 		return temp;
 	}
+	
+	// move//
 	@RequestMapping("/main")
 	public String goMain() {
 		logger.info("GO :: {}","main");
@@ -69,7 +71,7 @@ public class MemberController {
 	@RequestMapping("/detail")
 	public String moveDetail(){
 		logger.info("GO :: {}","detail");
-		return "admin:member/detail.tiles";
+		return "user:member/detail.tiles";
 	}
 	@RequestMapping("/update")
 	public String moveUpdate(){
@@ -79,7 +81,7 @@ public class MemberController {
 	@RequestMapping("/delete")
 	public String moveDelete(){
 		logger.info("GO :: {}","delete");
-		return "admin:member/delete.tiles";
+		return "user:member/delete.tiles";
 	}
 	@RequestMapping("/login")
 	public String login(){
@@ -105,6 +107,22 @@ public class MemberController {
 	public String moveCount(){
 		logger.info("GO :: {}","count");
 		return "admin:member/count.tiles";
+	}
+	
+	@RequestMapping("/kaup")
+	public String moveKaup(){
+		logger.info("GO :: {}","kaup");
+		return "user:user/kaup.tiles";
+	}
+	@RequestMapping("/rock_sissor_paper")
+	public String moveRockSissorPaper(){
+		logger.info("GO :: {}","rockSissorPaper");
+		return "user:user/rockSissorPaper.tiles";
+	}
+	@RequestMapping("/lotto")
+	public String moveLotto(){
+		logger.info("GO :: {}","lotto");
+		return "user:user/lotto.tiles";
 	}
 }
 

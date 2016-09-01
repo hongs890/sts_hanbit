@@ -9,7 +9,6 @@ var app = (function(){
 		navi.init();
 		admin.init();
 		onCreate();
-		
 	};
 	var context = function(){return session.getContextPath();};
 	var js = function(){return sessionStorage.getItem('js');};
@@ -89,10 +88,15 @@ var user = (function(){
 		$('#member_content_img_member').attr('src',app.img()+'/member.png').css('width','30px').css('alt','home');
 		$('#member_content_img_home').attr('src',app.img()+'/home.png').css('width','30px').css('alt','home');
 		$('#user_header #exit').addClass('cursor_pointer');
+		
 	};
 	var onCreate = function(){
 		setContentView();
 		$('#user_title').click(function(){controller.move('member','main');});
+		$('#user_header #account ul li:eq(0) a').click(function(){controller.move('account','detail')});
+		$('#user_header #account ul li:eq(1) a').click(function(){controller.move('account','open')});
+		$('#user_header #account ul li:eq(2) a').click(function(){controller.move('account','transaction')});
+		$('#user_header #account ul li:eq(3) a').click(function(){controller.move('account','delete')});
 		$('#bt_bom').click(function(){controller.move('','bom');});
 		$('#bt_dom').click(function(){controller.move('','dom');});
 		$('#bt_kaup').click(function(){controller.move('','kaup');});
@@ -186,7 +190,7 @@ var member = (function(){
 		$('#member_regist span').addClass('float_left').addClass('text_left').css('width','200px');
 		$('#member_regist #bt_join').addClass('btn').addClass('btn-warning');
 		$('#member_regist #bt_cancel').addClass('btn').addClass('btn-warning');
-		$('#member_regist_form').addClass('form-horizontal').css('margin-top','60px');
+		$('#member_regist_form').addClass('form-horizontal').css('margin-top','5%').css('margin-right','20%');
 		$('#member_regist_form > div').addClass('form-group').addClass('form-group-lg');
 		$('#member_regist_form > div > label').addClass('col-sm-2').addClass('control-label');
 		$('#member_regist_form > div > div').addClass('col-sm-10');
@@ -199,7 +203,7 @@ var member = (function(){
 		$('#member_login_img').attr('src',app.img()+'/main.png').addClass('media-object').css('height','70%').css('width','100%').css('margin-top','5%');
 		$('#member_login #bt_login').addClass('btn').addClass('btn-warning');
 		$('#member_login #bt_cancel').addClass('btn').addClass('btn-warning');
-		$('#member_login_form').addClass('form-horizontal').css('margin-top','25%').css('margin-left','10%').css('margin-right','20%');
+		$('#member_login_form').addClass('form-horizontal').css('margin-top','25%').css('margin-left','20%').css('margin-right','30%');
 		$('#member_login_form > div').addClass('form-group').addClass('form-group-lg');
 		$('#member_login_form > div > label').addClass('col-sm-2').addClass('control-label');
 		$('#member_login_form > div > div').addClass('col-sm-10');
@@ -210,6 +214,7 @@ var member = (function(){
 	};
 	var onCreate = function(){
 		setContentView();
+		
 		$('#regist').click(function(){controller.move('member','regist');})
 		$('#detail').click(function(){controller.move('member','detail');})
 		$('#update').click(function(){controller.move('member','update');})
@@ -341,12 +346,18 @@ var session = (function(){
 	var getContextPath = function(){return sessionStorage.getItem('context')};
 	return{init:init, getContextPath:getContextPath}})();
 var controller = (function(){
-	var _page, _directory;
+	var _page, _directory, _key;
 	var setPage = function(page){this._page = page;};
 	var setDirectory = function(directory){this._directory = directory;};
+	var setKey = function(key){this._key = key;};
 	var getPage = function(){return this._page};
 	var getDirectory = function(){return this._directory};
-	return{setPage : setPage,setDirectory : setDirectory,getPage : getPage,getDirectory : getDirectory,
+	var getKey = function(){return this._key};
+	return{setPage : setPage,setDirectory : setDirectory,getPage : getPage,getDirectory : getDirectory, setKey : setKey, getKey : getKey,
+		moveWithKey : function(directory,page,key){
+			setDirectory(directory);setPage(page);setKey(key);
+			location.href=app.context()+'/'+getDirectory()+'/'+getPage()+'?key='+getKey();
+		},
 		move : function(directory,page){
 			setDirectory(directory);setPage(page);
 			location.href=app.context()+'/'+getDirectory()+'/'+getPage();

@@ -17,17 +17,12 @@ public class AccountController {
 	@RequestMapping("/open")
 	public String goOpen(){
 		logger.info("AccountController ! goOpen..");
-		return "admin:account/open.tiles";
+		return "user:account/open.tiles";
 	}
-	@RequestMapping("/deposit")
-	public String goDeposit(){
-		logger.info("AccountController ! goDeposit..");
-		return "admin:account/deposit.tiles";
-	}
-	@RequestMapping("/withdraw")
-	public String goWithdraw(){
-		logger.info("AccountController ! goWithdraw..");
-		return "admin:account/withdraw.tiles";
+	@RequestMapping("/transaction")
+	public String goTransaction(){
+		logger.info("AccountController ! goTransaction..");
+		return "user:account/transaction.tiles";
 	}
 	@RequestMapping("/update")
 	public String goUpdate(){
@@ -37,12 +32,17 @@ public class AccountController {
 	@RequestMapping("/delete")
 	public String goDelete(){
 		logger.info("AccountController ! goDelete..");
-		return "admin:account/delete.tiles";
+		return "user:account/open.tiles";
 	}
 	@RequestMapping("/list")
 	public String goList(){
 		logger.info("AccountController ! goList..");
-		return "admin:account/list.tiles";
+		return "user:account/list.tiles";
+	}
+	@RequestMapping("/detail")
+	public String goDetail(){
+		logger.info("AccountController ! goDetail..");
+		return "user:account/detail.tiles";
 	}
 	@RequestMapping("/find")
 	public String goFind(){
