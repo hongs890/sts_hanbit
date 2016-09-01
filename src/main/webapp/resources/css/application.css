@@ -19,6 +19,7 @@ tr:nth-child(even) { background-color: #dddddd;}
 .text_center{text-align: center;}
 /* COMPONENT */
 .footer{position:fixed;bottom: 0; padding:20px; width: 100%; background-color:#676767; color:white; clear:both; text-align:center;}
+
 .box{padding-top:50px; margin: 0 auto;width: 600px; text-align: center;}
 .box a{cursor:pointer}
 .formbox{padding:20px; border: 1px solid #999999; margin:0 auto; text-align: center}

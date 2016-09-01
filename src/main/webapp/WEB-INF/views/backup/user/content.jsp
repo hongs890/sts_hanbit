@@ -16,7 +16,7 @@
 				<div class="header-text">
 					<div class="row">
 						<div class="col-md-12 text-center">
-							<h3 class="light white">HANBIT ACADEMY</h3>
+							<h3 class="light white">Take care of your body.</h3>
 							<h1 class="white typed">It's the only place you have to live.</h1>
 							<span class="typed-cursor">|</span>
 						</div>
@@ -128,6 +128,14 @@
 					<div class="intro-table intro-table-third">
 						<h5 class="white heading">Happy Clients</h5>
 						<div class="owl-testimonials bottom">
+							<div class="item">
+								<h4 class="white heading content">I couldn't be more happy with the results!</h4>
+								<h5 class="white heading light author">Adam Jordan</h5>
+							</div>
+							<div class="item">
+								<h4 class="white heading content">I can't believe how much better I feel!</h4>
+								<h5 class="white heading light author">Greg Pardon</h5>
+							</div>
 							<div class="item">
 								<h4 class="white heading content">Incredible transformation and I feel so healthy!</h4>
 								<h5 class="white heading light author">Christina Goldman</h5>

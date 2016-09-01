@@ -1,22 +1,19 @@
 package com.hanbit.web.member;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 
 import com.hanbit.web.subject.SubjectMemberVO;
 
-
 @Controller
-@SessionAttributes({"user", "js", "css", "img"})
+@SessionAttributes({"user", "js", "css", "img", "context"})
 @RequestMapping("/member")
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -34,14 +31,14 @@ public class MemberController {
 		model.addAttribute("img", context);
 		return "admin:member/detail.tiles";
 	}
-	@RequestMapping("/login/execute")
-	public String executeLogin(@RequestParam("id") String id,
+	@RequestMapping(value="/login",method=RequestMethod.POST)
+	public String login(@RequestParam("id") String id,
 			@RequestParam("pw") String pw, 
 			@RequestParam("context") String context, Model model) {
 		String temp ="";
-		logger.info("Test executeLogin (id) : {}",id);
-		logger.info("Test executeLogin (pw) : {}",pw);
-		logger.info("Test executeLogin (context) : {}",context);
+		logger.info("TO LOGIN ID :: {}",id);
+		logger.info("TO LOGIN PW :: {}",pw);
+		logger.info("CONTEXT :: {}",context);
 		SubjectMemberVO member = new SubjectMemberVO();
 		member.setId(id);
 		member.setPw(pw);
@@ -49,6 +46,7 @@ public class MemberController {
 			member = service.findById(member.getId());
 			temp = "user:user/content.tiles";
 			model.addAttribute("user",member);
+			model.addAttribute("context",context);
 			model.addAttribute("js",context+"/resources/js");
 			model.addAttribute("css",context+"/resources/css");
 			model.addAttribute("img",context+"/resources/img");
@@ -57,59 +55,57 @@ public class MemberController {
 		}
 		return temp;
 	}
-
 	@RequestMapping("/main")
 	public String goMain() {
-		logger.info("MemberController ! goMain..");
+		logger.info("GO :: {}","main");
 		return "user:user/content.tiles";
 	}
 
 	@RequestMapping("/regist")
 	public String moveRegist(){
-		logger.info("MemberController ! regist()..");
+		logger.info("GO :: {}","regist");
 		return "public:member/regist.tiles";
 	}
 	@RequestMapping("/detail")
 	public String moveDetail(){
-		logger.info("MemberController ! detail()..");
+		logger.info("GO :: {}","detail");
 		return "admin:member/detail.tiles";
 	}
 	@RequestMapping("/update")
 	public String moveUpdate(){
-		logger.info("MemberController ! update()..");
+		logger.info("GO :: {}","update");
 		return "admin:member/update.tiles";
 	}
 	@RequestMapping("/delete")
 	public String moveDelete(){
-		logger.info("MemberController ! delete()..");
+		logger.info("GO :: {}","delete");
 		return "admin:member/delete.tiles";
 	}
 	@RequestMapping("/login")
-	public String moveLogin(){
-		logger.info("MemberController ! login()..");
+	public String login(){
+		logger.info("GO :: {}","login");
 		return "public:member/login.tiles";
 	}
 	@RequestMapping("/logout")
 	public String moveLogout(){
-		logger.info("MemberController ! logout()..");
+		logger.info("GO :: {}","logout");
 		return "admin:member/logout.tiles";
 	}
 	@RequestMapping("/list")
 	public String moveList(){
-		logger.info("MemberController ! list()..");
+		logger.info("GO :: {}","list");
 		return "admin:member/list.tiles";
 	}
 	@RequestMapping("/find_by")
 	public String moveFindBy(){
-		logger.info("MemberController ! find_by()..");
+		logger.info("GO :: {}","find_by");
 		return "admin:member/find_by.tiles";
 	}
 	@RequestMapping("/count")
 	public String moveCount(){
-		logger.info("MemberController ! count()..");
+		logger.info("GO :: {}","count");
 		return "admin:member/count.tiles";
 	}
-	
 }
 
 

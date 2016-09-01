@@ -82,7 +82,6 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public boolean login(SubjectMemberVO param) {
 		boolean loginOk= false;
-		System.out.println("DAO디버깅 : "+param.getId()+param.getPw());
 		if(param.getId()!=null && param.getPw()!=null && this.findById(param.getId()) !=null){
 			SubjectMemberVO member = this.findById(param.getId());
 			if(member.getPw().equals(param.getPw())){
