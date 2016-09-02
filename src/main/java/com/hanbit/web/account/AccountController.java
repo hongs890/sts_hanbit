@@ -37,7 +37,7 @@ public class AccountController {
 	@RequestMapping("/list")
 	public String goList(){
 		logger.info("GO :: {}","list");
-		return "user:account/list.tiles";
+		return "admin:account/list.tiles";
 	}
 	@RequestMapping("/detail")
 	public String goDetail(){

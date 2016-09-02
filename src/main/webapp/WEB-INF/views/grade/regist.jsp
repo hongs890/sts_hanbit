@@ -36,20 +36,3 @@
 	</form>	
 </div>
 </section>
-<script type="text/javascript">
-$(function(){
-	$('#grade_regist').addClass('media').addClass('text_center').css('font-size','30px');
-	$('#grade_regist > div').css('float','left').css('width','50%');
-	$('#grade_regist > div > div').css('float','right').css('width','50%');
-	$('#grade_regist_img').attr('src',app.img()+'/grade.jpg').addClass('media-object').css('height','50%').css('width','70%').css('margin-left','15%').css('margin-top','5%');
-	$('#grade_regist span').addClass('float_left').addClass('text_left').css('width','200px');
-	$('#grade_regist #bt_join').addClass('btn').addClass('btn-warning');
-	$('#grade_regist #bt_cancel').addClass('btn').addClass('btn-warning');
-	$('#grade_regist_form').addClass('form-horizontal').css('margin-top','7%').css('margin-right','20%');
-	$('#grade_regist_form > div').addClass('form-group').addClass('form-group-lg');
-	$('#grade_regist_form > div > label').addClass('col-sm-2').addClass('control-label');
-	$('#grade_regist_form > div > div').addClass('col-sm-10');
-	$('#grade_regist_form > div > div > input').addClass('form-control');
-});
-</script>
-

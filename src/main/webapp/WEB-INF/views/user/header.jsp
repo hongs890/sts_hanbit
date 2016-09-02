@@ -36,6 +36,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a id="detail">My Page</a></li>
+            <li><a id="update">Update Info</a></li>
             <li><a id="delete">Delete Account</a></li>
           </ul>
         </li>

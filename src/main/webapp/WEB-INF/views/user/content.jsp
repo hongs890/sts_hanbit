@@ -92,14 +92,3 @@
 	<script src="${js}/main.js"></script>
 	<script src="${js}/tooltip.js"></script>
 	<script src="${js}/typed.js"></script>
-	<script>
-	$(function(){
-		$('#user_content #kaup').addClass('cursor_pointer').click(function(){controller.move('member','kaup');});
-		$('#user_content #rockSissorPaper').addClass('cursor_pointer').click(function(){controller.move('member','rock_sissor_paper');});
-		$('#user_content #lotto').addClass('cursor_pointer').click(function(){controller.move('member','lotto');});
-		 var key =$('#user_content #major_subject_1 input[type="hidden"]').val();
-		$('#user_content #major_subject_1').addClass('cursor_pointer').click(function(){controller.moveWithKey('subject','detail',key);});
-		$('#user_content #major_subject_2').addClass('cursor_pointer').click(function(){controller.moveWithKey('subject','detail',key);});
-		$('#user_content #major_subject_3').addClass('cursor_pointer').click(function(){controller.moveWithKey('subject','detail',key);}); 
-	});
-	</script>

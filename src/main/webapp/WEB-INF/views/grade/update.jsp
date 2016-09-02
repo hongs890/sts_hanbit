@@ -35,20 +35,4 @@
 	</form>	
 </div>
 </section>
-<script type="text/javascript">
-$(function(){
-	$('#grade_update').addClass('media').addClass('text_center').css('font-size','30px');
-	$('#grade_update > div').css('float','left').css('width','50%');
-	$('#grade_update > div > div').css('float','right').css('width','50%');
-	$('#grade_update_img').attr('src',app.img()+'/grade.jpg').addClass('media-object').css('height','50%').css('width','70%').css('margin-left','15%').css('margin-top','5%');
-	$('#grade_update span').addClass('float_left').addClass('text_left').css('width','200px');
-	$('#grade_update #bt_join').addClass('btn').addClass('btn-warning');
-	$('#grade_update #bt_cancel').addClass('btn').addClass('btn-warning');
-	$('#grade_update_form').addClass('form-horizontal').css('margin-top','7%').css('margin-right','20%');
-	$('#grade_update_form > div').addClass('form-group').addClass('form-group-lg');
-	$('#grade_update_form > div > label').addClass('col-sm-2').addClass('control-label');
-	$('#grade_update_form > div > div').addClass('col-sm-10');
-	$('#grade_update_form > div > div > input').addClass('form-control');
-});
-</script>
 

@@ -48,7 +48,7 @@ public class GradeController {
 	}
 	
 	@RequestMapping("/find")
-	public String goSearch(){
+	public String goFind(){
 		logger.info("GO :: {}","find");
 		return "user:grade/find.tiles";
 	}

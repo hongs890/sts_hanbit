@@ -69,13 +69,12 @@ public class MemberController {
 		return "public:member/regist.tiles";
 	}
 	@RequestMapping("/detail")
-	public String moveDetail(@RequestParam("key") String key){	
+	public String moveDetail(){	
 		logger.info("GO :: {}","detail");
-		logger.info("KEY :: {}",key);
 		return "user:member/detail.tiles";
 	}
 	@RequestMapping("/a_detail")
-	public String moveADetail(@RequestParam("key") String key){	
+	public String moveDetail(@RequestParam("key") String key){	
 		logger.info("GO :: {}","a_detail");
 		logger.info("KEY :: {}",key);
 		return "admin:member/a_detail.tiles";
@@ -83,7 +82,7 @@ public class MemberController {
 	@RequestMapping("/update")
 	public String moveUpdate(){
 		logger.info("GO :: {}","update");
-		return "admin:member/update.tiles";
+		return "user:member/update.tiles";
 	}
 	@RequestMapping("/delete")
 	public String moveDelete(){

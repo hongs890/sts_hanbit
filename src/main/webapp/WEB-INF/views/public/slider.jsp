@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <body style="padding:0px; margin:0px; background-color:#fff;font-family:Arial, sans-serif">
-
     <script type="text/javascript" src="${js}/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="${js}/jssor.slider-21.1.5.mini.js"></script>
-    <!-- use jssor.slider-21.1.5.debug.js instead for debug -->
     <script>
         jQuery(document).ready(function ($) {
             
@@ -106,7 +104,7 @@
             width: 55px;
             height: 55px;
             cursor: pointer;
-            background: url('${img}/default/img/a02.png') no-repeat;
+            background: url('${img}/slide/a02.png') no-repeat;
             overflow: hidden;
         }
         .jssora02l { background-position: -3px -33px; }
@@ -122,49 +120,49 @@
         <!-- Loading Screen -->
         <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
             <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
-            <div style="position:absolute;display:block;background:url('${img}/default/img/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
+            <div style="position:absolute;display:block;background:url('${img}/slide/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
         </div>
         <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 600px; height: 300px; overflow: hidden;">
             <div data-p="112.50" style="display: none;">
-                <img data-u="image" src="${img}/default/img/002.jpg" />
+                <img data-u="image" src="${img}/slide/002.jpg" />
                 <div data-u="caption" data-t="0" style="position: absolute; top: 320px; left: 30px; width: 350px; height: 30px; background-color: rgba(235,81,0,0.5); font-size: 20px; color: #ffffff; line-height: 30px; text-align: center;">mobile ready, touch swipe</div>
             </div>
             <div data-p="112.50" style="display: none;">
-                <img data-u="image" src="${img}/default/img/007.jpg" />
+                <img data-u="image" src="${img}/slide/007.jpg" />
                 <div data-u="caption" data-t="1" data-3d="1" style="position: absolute; top: -50px; left: 125px; width: 350px; height: 30px; background-color: rgba(235,81,0,0.5); font-size: 20px; color: #ffffff; line-height: 30px; text-align: center;">time lined layer animation</div>
             </div>
             <div data-p="112.50" style="display: none;">
-                <img data-u="image" src="${img}/default/img/003.jpg" />
+                <img data-u="image" src="${img}/slide/003.jpg" />
                 <div data-u="caption" data-t="2" style="position: absolute; top: 30px; left: -380px; width: 350px; height: 30px; background-color: rgba(235,81,0,0.5); font-size: 20px; color: #ffffff; line-height: 30px; text-align: center;">finger catchable right to left</div>
             </div>
             <div data-p="112.50" style="display: none;">
-                <img data-u="image" src="${img}/default/img/004.jpg" />
+                <img data-u="image" src="${img}/slide/004.jpg" />
                 <div data-u="caption" data-t="3" style="position: absolute; top: 30px; left: 30px; width: 350px; height: 30px; background-color: rgba(235,81,0,0.5); font-size: 20px; color: #ffffff; line-height: 30px; text-align: center;">responsive, scale smoothly</div>
             </div>
             <div data-p="112.50" style="display: none;">
-                <img data-u="image" src="${img}/default/img/005.jpg" />
+                <img data-u="image" src="${img}/slide/005.jpg" />
                 <div data-u="caption" data-t="4" style="position: absolute; top: 30px; left: 30px; width: 350px; height: 30px; background-color: rgba(235,81,0,0.6); font-size: 20px; color: #ffffff; line-height: 30px; text-align: center;">image, text, and custom layers</div>
             </div>
             <div data-p="112.50" style="display: none;">
-                <img data-u="image" src="${img}/default/img/006.jpg" />
+                <img data-u="image" src="${img}/slide/006.jpg" />
                 <div data-u="caption" data-t="5" style="position: absolute; top: 30px; left: 600px; width: 350px; height: 30px; background-color: rgba(235,81,0,0.5); font-size: 20px; color: #ffffff; line-height: 30px; text-align: center;">tons of transition type</div>
             </div>
             <div data-p="112.50" style="display: none;">
-                <img data-u="image" src="${img}/default/img/009.jpg" />
+                <img data-u="image" src="${img}/slide/009.jpg" />
                 <div data-u="caption" data-t="6" style="position: absolute; top: 30px; left: 30px; width: 350px; height: 30px; background-color: rgba(235,81,0,0.5); font-size: 20px; color: #ffffff; line-height: 30px; text-align: center;">visual slider maker</div>
             </div>
             <div data-b="0" data-p="112.50" style="display: none;">
-                <img data-u="image" src="${img}/default/img/008.jpg" />
+                <img data-u="image" src="${img}/slide/008.jpg" />
                 <div data-u="caption" data-t="7" style="position: absolute; top: -50px; left: 30px; width: 350px; height: 30px; background-color: rgba(235,81,0,0.5); font-size: 20px; color: #ffffff; line-height: 30px; text-align: center;">play in and play out</div>
             </div>
             <div data-p="112.50" style="display: none;">
-                <img data-u="image" src="${img}/default/img/011.jpg" />
+                <img data-u="image" src="${img}/slide/011.jpg" />
                 <div data-u="caption" data-t="8" data-3d="1" style="position: absolute; top: 25px; left: 150px; width: 250px; height: 250px; background-color: rgba(40,177,255,0.6); overflow: hidden;">
                     <div data-u="caption" data-t="9" style="position: absolute; top: 100px; left: 25px; width: 200px; height: 50px; font-size: 24px; line-height: 50px;">A Child Layer</div>
                 </div>
             </div>
             <div data-p="112.50" style="display: none;">
-                <img data-u="image" src="${img}/default/img/010.jpg" />
+                <img data-u="image" src="${img}/slide/010.jpg" />
                 <div data-u="caption" data-t="10" data-3d="1" style="position: absolute; top: 25px; left: 100px; width: 250px; height: 250px; background-color: rgba(40,177,255,0.6);">
                     <div style="margin: 15px; font-size: 20px;">
                         <p>This is full customized content layer.<br />
@@ -179,7 +177,7 @@
                             a link
                         </a> or an image
                         
-                        <img src="${img}/default/img/icon_chrome.png" /> here.
+                        <img src="${img}/slide/icon_chrome.png" /> here.
                         
                     </div>
                 </div>

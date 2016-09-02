@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<section class="text_center">
+<img src="${img}/member_list.png" style="width:100%; height:40%">
+<section class="text_center box" style="width:80%">
 <table id="subject_detail">
 		<tr>
 			<td rowspan="4" style="width:30%">
@@ -10,7 +11,7 @@
 		<tr><td class="font_bold bg_color_yellow">Major</td>
 			<td class="font_bold bg_color_yellow">Computer</td>
 		</tr>
-	</table>
+</table>
 <h1>Member Detail</h1>  
 <table id="member_list_table">
      <tr>

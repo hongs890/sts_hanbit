@@ -32,6 +32,8 @@ video {	position : fixed;top : 0; left : 0;min-width : 100 %;min-height : 100 %;
 .display_inline{display: inline;}
 .display_block{display: block;};
 /* =====ID STYLE===== */
+
+/* ===== table ===== */
 * {box-sizing:border-box;}
 ul {list-style-type: none;}
 body {font-family: Verdana,sans-serif;}

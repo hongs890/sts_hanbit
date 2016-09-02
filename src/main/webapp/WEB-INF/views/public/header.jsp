@@ -8,16 +8,9 @@
       <ul class="nav navbar-nav navbar-right">
        <li><a id="a_free_board">Free Board</a></li>
         <li><a id="a_school">Intro</a></li>
-         <li><a href="#">Map</a></li>
-         <li><a id="test">Test</a></li>
+         <li><a id="a_map">Map</a></li>
         <li class="dropdown">
           </ul>
     </div>
   </div>
 </nav>
-<script type="text/javascript">
-$(function(){
-	$('#test').click(function(){controller.move('public','slider')});
-	
-});
-</script>
