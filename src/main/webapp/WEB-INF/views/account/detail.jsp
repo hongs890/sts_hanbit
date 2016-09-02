@@ -1,41 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-	<link rel="stylesheet" type="text/css" href="${css}/table1.css"> 
-	<link rel="stylesheet" type="text/css" href="${css}/table2.css">  
-	<div class="box">
 <section class="text_center">
 <table id="subject_detail">
 		<tr>
 			<td rowspan="4" style="width:30%">
 			<img src="${img}/member/hong.jpg" alt="W3Schools.com" width="200" height="200"></td>
+			<td style="width:20%" class="font_bold bg_color_yellow">Name</td>
 			<td style="width:20%" class="font_bold bg_color_yellow">홍길동</td>
 		</tr>
-		<tr>
-			<td class="font_bold bg_color_yellow">신한은행</td>
+		<tr><td class="font_bold bg_color_yellow">Bank Name</td>
+			<td class="font_bold bg_color_yellow">ShinHan</td>
 		</tr>
 		<tr>
+		<td class="font_bold bg_color_yellow">Account Number</td>
 			<td class="font_bold bg_color_yellow">110-429-156739</td>
 		</tr>
 		<tr>	
-			<td class="font_bold bg_color_yellow">601,000</td>
+		<td class="font_bold bg_color_yellow">Balance</td>
+		<td class="font_bold bg_color_yellow">601,000</td>
 		</tr>
-	</table><br/><br/><br/>
+	</table>
 <h1>Account Detail</h1>  
-<div  class="tbl-header">
-<table cellpadding="0" cellspacing="0" border="0">
-  <thead>
-    <tr>
+<table>
+  <tr>
       <th>Date</th>
       <th>Deposit</th>
       <th>Withdraw</th>
       <th>Balance</th>
     </tr>
-  </thead>
-</table>
-</div>
-<div  class="tbl-content">
-<table cellpadding="0" cellspacing="0" border="0">
-  <tbody>
-    <tr>
+  <tr>
       <td>2016-05-01</td>
       <td>5,000 </td>
       <td>3,000</td>
@@ -89,9 +81,7 @@
       <td>100,000</td>
       <td>601,000</td>
     </tr>
-  </tbody>
 </table>
-</div>
 <nav aria-label="Page navigation">
   <ul class="pagination">
     <li>
@@ -112,9 +102,3 @@
   </ul>
 </nav>
 </section>
-
-</div>
-
-<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src="${js}/table.js"></script>
-

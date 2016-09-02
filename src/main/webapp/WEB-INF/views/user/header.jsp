@@ -15,8 +15,8 @@
         <li id="grade" class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Grade Manage <span class="caret"></span></a>
           <ul  class="dropdown-menu">
-            <li><a href="#">Grade list</a></li>
-            <li><a href="#">Grade Search</a></li>
+            <li><a href="#">Recntly Grade</a></li>
+            <li><a href="#">Past Grade</a></li>
           </ul>
         </li>
          <li id="account" class="dropdown">

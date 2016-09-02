@@ -14,7 +14,6 @@ var app = (function(){
 	var js = function(){return sessionStorage.getItem('js');};
 	var css = function() {return sessionStorage.getItem('css');};
 	var img = function() {return sessionStorage.getItem('img');};
-	var boot_img = function() {return sessionStorage.getItem('boot_img');};
 	var setContentView = function(){
 		$('#header_brand').attr('src',app.img()+'/mark.png').css('height','50px').css('width','50px').css('alt','Brand');
 		$('#header_admin_img').attr('src',app.img()+'/admin.png').css('height','50px').css('width','50px');
@@ -43,11 +42,12 @@ var admin = (function() {
 	var setPass = function(pass){ this._pass = pass;};
 	var init = function(){onCreate();};
 	var setContentView = function(){
-		$('#admin_content h1').addClass('text_center');
-		$('#admin_content p').addClass('text_center');
-		$('#admin_content #memberMgmt').attr('src',app.img()+'/membermgmt.png').css('width','500px');
-		$('#admin_content #gradeMgmt').attr('src',app.img()+'/grademgmt.png').css('width','500px');
-		$('#admin_content #accountMgmt').attr('src',app.img()+'/bankmgmt.png').css('width','500px');
+		$('#admin_content h1').addClass('text_center').addClass('_white');
+		$('#admin_content p').addClass('text_center').addClass('_white');
+		$('#admin_content img').css('margin-left','25%').css('margin-top','25%');
+		$('#admin_content #memberMgmt').attr('src',app.img()+'/membermgmt.png').css('width','50%');
+		$('#admin_content #gradeMgmt').attr('src',app.img()+'/grademgmt.png').css('width','50%');
+		$('#admin_content #accountMgmt').attr('src',app.img()+'/bankmgmt.png').css('width','50%');
 		$('#account_open').addClass('media').addClass('text_center');
 		$('#account_open  form').css('margin-top','150px');
 		$('#account_open > div').addClass('media-left');
@@ -97,6 +97,8 @@ var user = (function(){
 		$('#user_header #account ul li:eq(1) a').click(function(){controller.move('account','open')});
 		$('#user_header #account ul li:eq(2) a').click(function(){controller.move('account','transaction')});
 		$('#user_header #account ul li:eq(3) a').click(function(){controller.move('account','delete')});
+		$('#user_header #grade ul li:eq(0) a').click(function(){controller.move('grade','detail')});
+		$('#user_header #grade ul li:eq(1) a').click(function(){controller.move('grade','find')});
 		$('#bt_bom').click(function(){controller.move('','bom');});
 		$('#bt_dom').click(function(){controller.move('','dom');});
 		$('#bt_kaup').click(function(){controller.move('','kaup');});

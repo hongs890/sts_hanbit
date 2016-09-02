@@ -26,5 +26,9 @@ public class HomeController {
 	public String schoolInfo(){
 		return "public:public/school_info.tiles";
 	}
+	@RequestMapping("public/slider")
+	public String slider(){
+		return "public:error/slider.tiles";
+	}
 	
 }

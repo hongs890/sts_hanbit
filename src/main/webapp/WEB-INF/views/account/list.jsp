@@ -6,19 +6,17 @@
   </div>
 <table id="member_list" class="table">
 	<tr>
-	    <td>ID</td>
-	    <td>Username</td>
 	    <td>Account No</td>
+	    <td>Username</td>
+	    <td>Birth</td>
 	    <td>Balance</td>
 	</tr>
-	<c:forEach var="member" items="${list}">
 	<tr>
-	    <td>${account.id}</td>
-	    <td>${account.name}</td>
-	    <td>${account.accountNo}</td>
-	    <td>${account.money}</td>
+	    <td>123-456-789</td>
+	    <td>홍길동</td>
+	    <td>1989-02-22</td>
+	    <td>50</td>
 	</tr>
-	</c:forEach>
 </table>
 </div>
 

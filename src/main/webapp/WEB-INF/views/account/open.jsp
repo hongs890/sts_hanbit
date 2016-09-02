@@ -4,10 +4,8 @@
 <img id="account_open_img">
 </div>
 <div>
-
         <form class="navbar-form navbar-left" role="search">
-      
-		<div class="form-group">
+     	<div class="form-group">
 		<div class="col-lg-20">
 		  <h1>Create/Delete Account</h1><br/>
 		<select style='width:100px;height:30px'>

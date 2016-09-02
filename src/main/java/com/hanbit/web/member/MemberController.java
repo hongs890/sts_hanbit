@@ -69,9 +69,16 @@ public class MemberController {
 		return "public:member/regist.tiles";
 	}
 	@RequestMapping("/detail")
-	public String moveDetail(){
+	public String moveDetail(@RequestParam("key") String key){	
 		logger.info("GO :: {}","detail");
+		logger.info("KEY :: {}",key);
 		return "user:member/detail.tiles";
+	}
+	@RequestMapping("/a_detail")
+	public String moveADetail(@RequestParam("key") String key){	
+		logger.info("GO :: {}","a_detail");
+		logger.info("KEY :: {}",key);
+		return "admin:member/a_detail.tiles";
 	}
 	@RequestMapping("/update")
 	public String moveUpdate(){
