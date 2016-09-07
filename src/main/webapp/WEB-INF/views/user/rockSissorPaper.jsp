@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<script src="${js}/douglas.js"></script>
 <div id="container">
 <section id="formbox">
 	<form name="form" >
@@ -10,8 +8,5 @@
 		<p>몸무게</p><input type="text" name="weight" id="weight" />
 		<input type="button" value="결과보기" id="kaup_calc"/>
 	</form>
-</section>
-<section>
-	<p>결과 : </p> <span id="result"></span>
 </section>
 </div>

@@ -1,11 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<style>
-#subject_detail{border: 1px solid gray; width:90%; height: 400px; margin: 0 auto; border-collapse: collapse;}
-#subject_detail tr{border: 1px solid gray; height:10%}
-#subject_detail tr td{border: 1px solid gray;}
-.font_bold{font-weight: bold;}
-.bg_color_yellow{background-color: #EAEAEA}
-</style>
 <div style="text-align: center">	
 	<table id="subject_detail">
 		<tr>

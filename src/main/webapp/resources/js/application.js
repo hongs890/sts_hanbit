@@ -1,15 +1,5 @@
 var app = (function(){
-	var init = function(context){
-		session.init(context);
-		member.init();
-		user.init();
-		account.init();
-		kaup.init();
-		grade.init();
-		navi.init();
-		admin.init();
-		onCreate();
-	};
+	var init = function(context){session.init(context);	member.init();user.init();	account.init();	kaup.init();grade.init();navi.init();admin.init();onCreate();};
 	var context = function(){return session.getContextPath();};
 	var js = function(){return sessionStorage.getItem('js');};
 	var css = function() {return sessionStorage.getItem('css');};
@@ -37,7 +27,6 @@ var app = (function(){
 		$('#a_map').click(function(){controller.move('public','contact');});
 		$('#a_free_board').click(function(){controller.move('public','free_board');});
 		$('#a_school').click(function(){controller.move('public','school_info');});}
-
 	return {init:init, context : context,css : css,js : js,img : img,onCreate : onCreate}})();
 var admin = (function() {
 	var _pass;
@@ -86,15 +75,9 @@ var admin = (function() {
 			var isAdmin = confirm('관리자입니까?');
 			if (!isAdmin) {	alert('관리자만 접근할 수 있는 페이지입니다.');} 
 			else {var password = prompt('관리자 비밀번호를 입력해주세요');
-			if (password == 1) {
-				controller.move('admin','main');
-				
-				}
+			if (password == 1) {controller.move('admin','main');}
 			else{alert('잘못된 비밀번호를 입력하셨습니다');}
-			
-			}
-		}
-	};
+			}}};
 })();
 
 var user = (function(){
@@ -150,14 +133,10 @@ var account = (function(){
 		$('#bt_make_account').click(this.spec());
 		$('#bt_deposit').click(this.deposit());
 		$('#bt_withdraw').click(this.withdraw());	
-		
-		
 	};
 	return{
 		setAccountNo : setAccountNo,getAccountNo : getAccountNo,setMoney : setMoney,getMoney : getMoney,
-		init : function(){
-			
-		},
+		init : function(){},
 		spec : function(){
 			setAccountNo(Math.floor(Math.random() * 899999) + 100000);
 			document.querySelector('#result_account').innerHTML = getAccountNo();
@@ -263,7 +242,6 @@ var member = (function(){
 		    var ageResult1 =ssnArr[0];
 		    var genderResult = ssnArr[1].toString().substring(0, 1);
 		    var ageResult0 = 0;
-		    
 		     switch (genderResult) {
 		         case "1": case "5":
 		        	 setAge(now-(1899+(ageResult1 /10000)));
