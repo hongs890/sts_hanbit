@@ -1,0 +1,81 @@
+package com.hanbit.web.services.impl;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.hanbit.web.domains.MemberDTO;
+import com.hanbit.web.mappers.MemberMapper;
+import com.hanbit.web.services.MemberService;
+
+
+@Service
+public class MemberServiceImpl implements MemberService {
+	 @Autowired private SqlSession sqlSession;
+
+	@Override
+	public String regist(MemberDTO mem) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		String msg = "";
+		if (mapper.insert(mem)==1) {
+			msg = mapper.findById(mem.getId()).getName();
+		}
+		return msg;
+	}
+	@Override
+	public int count() {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.count();
+	}
+	@Override
+	public MemberDTO findById(String mem) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		System.out.println("find by id : "+mem);
+		return mapper.findById(mem);
+	}
+	@Override
+	public List<?> list() {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.list();
+	}
+	@Override
+	public List<?> findByName(String findName) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.findByName(findName);
+	}
+	@Override
+	public List<?> findBy(String keyword) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return null;
+	}
+	@Override
+	public Map<?, ?> map() {
+		return null;
+	}
+	
+	@Override
+	public MemberDTO login(MemberDTO member) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		MemberDTO mem = mapper.findById(member.getId());
+		if (mem.getPw().equals(member.getPw())) {
+			System.out.println("login 디버깅 : 접근 성공");
+			return mem;
+		}
+		mem.setId("fail");
+		return null;
+	}
+	@Override
+	public void update(MemberDTO mem) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void delete(MemberDTO mem) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

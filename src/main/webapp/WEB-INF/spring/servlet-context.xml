@@ -35,5 +35,4 @@ xmlns="http://www.springframework.org/schema/mvc"
 	<context:component-scan base-package="com.hanbit.web" />
 	<!--  usetiles -->
 
-	
 </beans:beans>

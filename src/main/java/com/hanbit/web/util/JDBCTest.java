@@ -19,7 +19,7 @@ public class JDBCTest {
 		Connection con;
 		Statement stmt;
 		ResultSet rs;
-		String sql = "select name from member where id = 'hong2'",result="";
+		String sql = "select name from member where mem_id = 'prof_james'", result="";
 		List<String> list = new ArrayList<String>();
 		try {
 			Class.forName(Constants.ORACLE_DRIVER);
