@@ -12,7 +12,7 @@ public class GradeController {
 	private static final Logger logger = LoggerFactory.getLogger(GradeController.class);
 	@RequestMapping("/main")
 	public String goMain(){
-		logger.info("GO :: {}","main");
+		logger.info("GO1 :: {}","main");
 		return "admin:grade/content.tiles";
 	}
 	@RequestMapping("/regist")
