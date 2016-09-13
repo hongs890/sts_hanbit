@@ -34,7 +34,7 @@ public class MemberController {
 	}
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public String login(@RequestParam("id") String id,
-			@RequestParam("pw") String pw, 
+			@RequestParam("pw") String pw,
 			@RequestParam("context") String context, Model model) {
 		String temp ="";
 		logger.info("TO LOGIN ID :: {}",id);
@@ -43,6 +43,7 @@ public class MemberController {
 		MemberDTO member = new MemberDTO();
 		member.setId(id);
 		member.setPw(pw);
+		System.out.println("테스트해봄"+service.login(member).getName());
 		if (!service.login(member).getId().equals("fail")) {
 			logger.info("Controller 디버깅 :: {}",member.getId());
 			member = service.findById(member.getId());

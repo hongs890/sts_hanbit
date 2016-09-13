@@ -58,15 +58,17 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public MemberDTO login(MemberDTO member) {
+		MemberDTO mem = new MemberDTO();
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		MemberDTO mem = mapper.findById(member.getId());
-		if (mem.getId() == null && mem.getPw() == null && mapper.findBy(member.getId()) == null) {
-			mem.setId("fail");
-			System.out.println("왜 안들어오냐"+mem.getId());
-		}else{
-			if (!member.getPw().equals(mem.getPw())) {
-			mem.setId("fail");
+		if (member.getId() != null && member.getPw() != null && mapper.findById(member.getId()) != null) {
+			mem = mapper.findById(member.getId());
+			if (member.getPw().equals(mem.getPw())) {
+				return mem;
+			}else{
+				mem.setId("fail");
 			}
+		}else{
+			mem.setId("fail");
 		}
 		return mem;
 	}
