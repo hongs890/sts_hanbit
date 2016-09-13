@@ -60,12 +60,15 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDTO login(MemberDTO member) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		MemberDTO mem = mapper.findById(member.getId());
-		if (mem.getPw().equals(member.getPw())) {
-			System.out.println("login 디버깅 : 접근 성공");
-			return mem;
+		if (mem.getId() == null && mem.getPw() == null && mapper.findBy(member.getId()) == null) {
+			mem.setId("fail");
+			System.out.println("왜 안들어오냐"+mem.getId());
+		}else{
+			if (!member.getPw().equals(mem.getPw())) {
+			mem.setId("fail");
+			}
 		}
-		mem.setId("fail");
-		return null;
+		return mem;
 	}
 	@Override
 	public void update(MemberDTO mem) {

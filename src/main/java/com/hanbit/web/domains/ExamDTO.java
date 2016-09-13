@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.hanbit.web.domains;
 
 import java.io.Serializable;
@@ -13,8 +10,8 @@ import lombok.Setter;
 
 @Component
 @Data
-public class MemberDTO implements Serializable{
+public class ExamDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
-	@Getter @Setter private String id,pw,name,gender,regDate,ssn,profileImg,email,phone,role;
-	@Getter @Setter private int majorSeq;
+	@Getter @Setter private int examSeq,score,subj_seq;
+	@Getter @Setter private String id, term;
 }

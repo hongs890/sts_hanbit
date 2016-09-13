@@ -53,6 +53,7 @@ public class MemberController {
 			model.addAttribute("css",context+"/resources/css");
 			model.addAttribute("img",context+"/resources/img");
 		}else{
+			logger.info("else값 들어오는지 테스트{}",member.getId());
 			temp = "public:member/login.tiles";
 		}
 		return temp;

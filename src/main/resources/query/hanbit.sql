@@ -1,3 +1,5 @@
+select * from major;
+
 ===== CREATE & DROP =====
 DROP SEQUENCE grade_seq;
 DROP SEQUENCE art_seq;
@@ -112,6 +114,11 @@ CREATE OR REPLACE VIEW Grade_View AS SELECT
 FROM Member u, Grade g, Subject s, Exam x WHERE u.mem_id = g.mem_id AND u.mem_id = s.mem_id AND u.mem_id = x.mem_id;
 
 CREATE OR REPLACE VIEW Board_View AS SELECT 
+	b.art_seq AS art_seq,
+	b.category AS category,
+	b.title AS title,
+	b.reg_date AS board_reg_date,
+	b.content AS content
 	u.mem_id AS mem_id,
 	u.pw AS pw,
 	u.name AS name,
@@ -122,11 +129,7 @@ CREATE OR REPLACE VIEW Board_View AS SELECT
 	u.profile_img AS profile_img,
 	u.role AS role,
 	u.phone AS phone,
-	b.art_seq AS art_seq,
-	b.category AS category,
-	b.title AS title,
-	b.reg_date AS board_reg_date,
-	b.content AS content
+	
 FROM Member u, Board b WHERE u.mem_id = b.mem_id;
 
 

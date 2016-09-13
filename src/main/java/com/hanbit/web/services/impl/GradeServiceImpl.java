@@ -23,7 +23,7 @@ public class GradeServiceImpl implements GradeService{
 	@Override
 	public String GradeCal(GradeDTO grade) {
 		String gradeRank ="";
-		int sum = grade.getJava() + grade.getSql() + grade.getHtml() + grade.getJavascript();
+		int sum = 0;
 		int ave = sum / 4;
 		switch (ave/10) {
 		case 9:	gradeRank = "A";break;
