@@ -14,7 +14,7 @@ import com.hanbit.web.services.MemberService;
 
 @Service
 public class MemberServiceImpl implements MemberService {
-	 @Autowired private SqlSession sqlSession;
+	@Autowired private SqlSession sqlSession;
 
 	@Override
 	public String regist(MemberDTO mem) {
@@ -60,7 +60,7 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDTO login(MemberDTO member) {
 		MemberDTO mem = new MemberDTO();
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		if (member.getId() != null && member.getPw() != null && mapper.findById(member.getId()) != null) {
+			if (member.getId() != null && member.getPw() != null && mapper.findById(member.getId()) != null) {
 			mem = mapper.findById(member.getId());
 			if (member.getPw().equals(mem.getPw())) {
 				return mem;
