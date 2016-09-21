@@ -1,16 +1,24 @@
 package com.hanbit.web.controllers;
 
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
+import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
+import com.hanbit.web.domains.Retval;
 import com.hanbit.web.services.impl.MemberServiceImpl;
 
 @Controller
@@ -19,45 +27,50 @@ import com.hanbit.web.services.impl.MemberServiceImpl;
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Autowired MemberServiceImpl service;
-	@RequestMapping("/search")
-	public String find(@RequestParam("keyword") String keyword,
-			@RequestParam("search_option") String option,
-			@RequestParam("context")String context, Model model){
-		MemberDTO member = service.findById(keyword);
-		logger.info("Test (vo.getName) :{}",member.getName());
-		logger.info("Test (keyword) : {}",keyword);
-		logger.info("Test (option) : {}",option);
-		logger.info("Test (context) : {}",context);
-		model.addAttribute("member",member);
-		model.addAttribute("img", context);
-		return "admin:member/detail.tiles";
+	@Autowired Command command;
+	@Autowired MemberDTO member;
+	@Autowired Retval retval;
+	@RequestMapping("/search/{option}/{keyword}")
+	public MemberDTO find(@PathVariable("option") String option,
+			@PathVariable("keywrod") String keyword, Model model){
+		logger.info("TO SEARCH KEYWORD IS {}",keyword);
+		logger.info("TO SEARCH OPTION IS {}",option);
+		command.setKeyword(keyword);
+		command.setOption(option);
+		return service.findOne(command);
 	}
+	@RequestMapping(value="/count/{option}")
+	public Model count(@PathVariable("option")String option, Model model){
+		logger.info("TO COUNT CONDITION IS :{}", option);
+		model.addAttribute("count", service.count());
+		return model;
+	}
+	@RequestMapping("/logined/header")
+	public String loginedHeader(){
+		logger.info("THIS PATH IS {}","LOGINED_HEADER");
+		return "user/header.jsp";
+		
+	}
+	
+	
 	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public String login(@RequestParam("id") String id,
-			@RequestParam("pw") String pw,
-			@RequestParam("context") String context, Model model) {
-		String temp ="";
+	public @ResponseBody MemberDTO login(@RequestParam("id") String id,
+			@RequestParam("pw") String pw, HttpSession session) {
 		logger.info("TO LOGIN ID :: {}",id);
 		logger.info("TO LOGIN PW :: {}",pw);
-		logger.info("CONTEXT :: {}",context);
-		MemberDTO member = new MemberDTO();
 		member.setId(id);
 		member.setPw(pw);
-		System.out.println("테스트해봄"+service.login(member).getName());
-		if (!service.login(member).getId().equals("fail")) {
-			logger.info("Controller 디버깅 :: {}",member.getId());
-			member = service.findById(member.getId());
-			temp = "user:user/content.tiles";
-			model.addAttribute("user",member);
-			model.addAttribute("context",context);
-			model.addAttribute("js",context+"/resources/js");
-			model.addAttribute("css",context+"/resources/css");
-			model.addAttribute("img",context+"/resources/img");
+		member = service.login(member);
+		if (member.getId().equals("fail")) {
+			logger.info("LOGIN FAIL","!!!!!");
+			return member;
 		}else{
-			logger.info("else값 들어오는지 테스트{}",member.getId());
-			temp = "public:member/login.tiles";
+			logger.info("LOGIN SUCCESS","!!!!!");
+			session.setAttribute("user", member);
+			member = service.findOne(command);
+			return member;
 		}
-		return temp;
+
 	}
 	
 	// move//
@@ -67,11 +80,28 @@ public class MemberController {
 		return "user:user/content.tiles";
 	}
 
-	@RequestMapping("/regist")
-	public String moveRegist(){
-		logger.info("GO :: {}","regist");
-		return "public:member/regist.tiles";
+	@RequestMapping("/signup")
+	public @ResponseBody Retval signup(){
+		logger.info("SIGN UP :: {}","EXECUTE");
+		return retval;
 	}
+	@RequestMapping("/check_dup/{id}")
+	public @ResponseBody Retval checkDup(@PathVariable String id){
+		command.setKeyword(id);
+		command.setOption("mem_id");
+		if (service.findOne(command) != null) {
+			retval.setFlag("FALSE");
+			retval.setMessage("입력하신 ID는 이미 존재합니다.");
+			
+		} else {
+			retval.setFlag("TRUE");
+			retval.setMessage("입력하신 ID는 사용 가능합니다.");
+		}
+		logger.info("FLAG :: {}",retval.getFlag());
+		logger.info("MESSAGE :: {}",retval.getMessage());
+		return retval;
+	}
+	
 	@RequestMapping("/detail")
 	public String moveDetail(){	
 		logger.info("GO :: {}","detail");
@@ -99,9 +129,11 @@ public class MemberController {
 		return "public:member/login.tiles";
 	}
 	@RequestMapping("/logout")
-	public String moveLogout(){
+	public String moveLogout(SessionStatus status){
 		logger.info("GO :: {}","logout");
-		return "admin:member/logout.tiles";
+		status.setComplete();
+		logger.info("SESSION :: {}","CLEAR");
+		return "redirect:/";
 	}
 	@RequestMapping("/list")
 	public String moveList(){

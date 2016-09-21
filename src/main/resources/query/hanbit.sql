@@ -1,5 +1,3 @@
-select * from major;
-
 ===== CREATE & DROP =====
 DROP SEQUENCE grade_seq;
 DROP SEQUENCE art_seq;
@@ -14,66 +12,6 @@ CREATE SEQUENCE art_seq START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE;
 CREATE SEQUENCE subj_seq START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE;
 CREATE SEQUENCE major_seq START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE;
 CREATE SEQUENCE exam_seq START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE;
-
-DROP TABLE Major CASCADE CONSTRAINT;
-CREATE TABLE Major(
-	major_seq INT CONSTRAINT major_seq PRIMARY KEY,
-	title VARCHAR2(20) NOT NULL
-);
-
-
-DROP TABLE Member CASCADE CONSTRAINT;
-CREATE TABLE Member(
-	mem_id VARCHAR2(20) CONSTRAINT member_pk PRIMARY KEY,
-	pw VARCHAR2(20) NOT NULL,
-	name VARCHAR2(20) NOT NULL,
-	gender VARCHAR2(20) NOT NULL,
-	reg_date VARCHAR2(20) NOT NULL,
-	ssn VARCHAR2(10) NOT NULL,
-	email VARCHAR2(30),
-	profile_img VARCHAR2(100) DEFAULT 'default.jpg',
-	role VARCHAR2(10) DEFAULT 'STUDENT',
-	phone VARCHAR2(13) NOT NULL,
-	major_seq INT,
-	CONSTRAINT gender_ck CHECK (gender in ('MALE','FEMALE')),
-	CONSTRAINT major_member_fk FOREIGN KEY (major_seq) REFERENCES Major(major_seq) ON DELETE CASCADE
-);
-DROP TABLE Grade CASCADE CONSTRAINT;
-CREATE TABLE Grade(
-	grade_seq INT CONSTRAINT grade_pk PRIMARY KEY,
-	grade VARCHAR2(5) NOT NULL,
-	term VARCHAR2(10) NOT NULL,
-	mem_id VARCHAR2(20) NOT NULL,
-	CONSTRAINT member_grade_fk FOREIGN KEY (mem_id)	REFERENCES Member(mem_id) ON DELETE CASCADE
-);
-DROP TABLE Board CASCADE CONSTRAINT;
-CREATE TABLE Board(
-	art_seq INT CONSTRAINT board_pk PRIMARY KEY,
-	category VARCHAR2(20) NOT NULL,
-	title VARCHAR2(30) DEFAULT 'NO TITLE',
-	reg_date VARCHAR2(20) NOT NULL,
-	content VARCHAR2(100) DEFAULT 'NO CONTENT',
-	mem_id VARCHAR2(20),
-	CONSTRAINT member_board_fk FOREIGN KEY (mem_id) REFERENCES Member(mem_id) ON DELETE CASCADE
-);
-DROP TABLE Subject CASCADE CONSTRAINT;
-CREATE TABLE Subject(
-	subj_seq INT CONSTRAINT subject_pk PRIMARY KEY,
-	subj_name VARCHAR2(20) NOT NULL,
-	mem_id VARCHAR2(20) NOT NULL,
-	CONSTRAINT member_subject_fk FOREIGN KEY (mem_id) REFERENCES Member(mem_id) ON DELETE CASCADE
-);
-
-DROP TABLE Exam CASCADE CONSTRAINT;
-CREATE TABLE Exam(
-	exam_seq INT CONSTRAINT exam_seq PRIMARY KEY,
-	term VARCHAR2(10) NOT NULL,
-	score INT DEFAULT 0,
-	subj_seq INT,
-	mem_id VARCHAR2(20),
-	CONSTRAINT subject_exam_fk FOREIGN KEY (subj_seq) REFERENCES Subject(subj_seq) ON DELETE CASCADE,
-	CONSTRAINT member_exam_fk FOREIGN KEY (mem_id) REFERENCES Member(mem_id) ON DELETE CASCADE
-);
 
 
 ==========VIEW=======
@@ -209,7 +147,7 @@ SELECT SEQUENCE_OWNER, SEQUENCE_NAME FROM DBA_SEQUENCES WHERE SEQUENCE_OWNER = '
 /*
 ===================== META _PROCEDURE ==================
 */
-SELECT OBJECT_NAME FROM USER_PROCEDURES;
+SELECT OBJECT_NAME FROM USER_PROCEDURES ORDER BY OBJECT_NAME ASC;
 DROP PROCEDURE JUNDEV.INSERTMEMBER;
 /*
 ===================== MAJOR =====================
@@ -219,20 +157,27 @@ DROP PROCEDURE JUNDEV.INSERTMEMBER;
 @ DESC : 전공
 =================================================
 */
---DEF_INSERT_MAJOR
+-- TABLE CREATE ORDER #1
+DROP TABLE Major CASCADE CONSTRAINT;
+CREATE TABLE Major(
+	major_seq INT CONSTRAINT major_seq PRIMARY KEY,
+	title VARCHAR2(20) NOT NULL UNIQUE
+);
+
+--SP_INSERT_MAJOR
 CREATE OR REPLACE PROCEDURE insert_major(sp_title IN Major.title%TYPE)AS
 BEGIN 
     INSERT INTO Major(major_seq,title) VALUES(major_seq.NEXTVAL,sp_title); 
 END insert_major;
 --EXE_INSERT_MAJOR
 EXEC JUNDEV.INSERT_MAJOR('컴퓨터공학');
---DEF_COUNT_MAJOR
+--SP_COUNT_MAJOR
 CREATE OR REPLACE PROCEDURE count_student(sp_count OUT NUMBER) AS
     BEGIN SELECT COUNT(*) into sp_count FROM Member; 
 END count_student;
 --EXE_COUNT_MAJOR
 DECLARE sp_count NUMBER;BEGIN count_student(sp_count);DBMS_OUTPUT.put_line ('학생수:'||sp_count);END;
---DEF_FIND_BY_MAJOR_SEQ
+--SP_FIND_BY_MAJOR_SEQ
 CREATE OR REPLACE PROCEDURE find_by_major_seq(
    sp_major_seq IN OUT Major.major_seq%TYPE,
    sp_title OUT Major.title%TYPE,
@@ -251,7 +196,24 @@ BEGIN find_by_major_seq(sp_major_seq,sp_title, sp_result); DBMS_OUTPUT.put_line 
 @ DESC : 교수
 =================================================
 */
---DEF_INSERT_PROF
+-- TABLE CREATE ORDER #2
+DROP TABLE Member CASCADE CONSTRAINT;
+CREATE TABLE Member(
+	mem_id VARCHAR2(20) CONSTRAINT member_pk PRIMARY KEY,
+	pw VARCHAR2(20) NOT NULL,
+	name VARCHAR2(20) NOT NULL,
+	gender VARCHAR2(20) NOT NULL,
+	reg_date VARCHAR2(20) NOT NULL,
+	ssn VARCHAR2(10) NOT NULL UNIQUE,
+	email VARCHAR2(30),
+	profile_img VARCHAR2(100) DEFAULT 'default.jpg',
+	role VARCHAR2(10) DEFAULT 'STUDENT',
+	phone VARCHAR2(13) NOT NULL UNIQUE,
+	major_seq INT,
+	CONSTRAINT gender_ck CHECK (gender in ('MALE','FEMALE')),
+	CONSTRAINT major_member_fk FOREIGN KEY (major_seq) REFERENCES Major(major_seq) ON DELETE CASCADE
+);
+--SP_INSERT_PROF
 CREATE OR REPLACE PROCEDURE insert_prof(
    sp_mem_id IN Member.mem_id%TYPE,
    sp_pw IN member.pw%TYPE,
@@ -278,7 +240,7 @@ EXEC JUNDEV.INSERT_PROF('profx','1','찰스','MALE','2010-06-01','700101','profx
 @ DESC : 학생
 =================================================
 */
---DEF_INSERT_STUDENT
+--SP_INSERT_STUDENT
 CREATE OR REPLACE PROCEDURE insert_student(
    sp_mem_id IN Member.mem_id%TYPE,
    sp_pw IN Member.pw%TYPE,
@@ -303,7 +265,7 @@ EXEC JUNDEV.INSERT_STUDENT('hong','1','홍길동','MALE','2016-06-01','800101','
 @ DESC : 과목
 =================================================
 */
---DEF_INSERT_SUBJECT
+--SP_INSERT_SUBJECT
 CREATE OR REPLACE PROCEDURE insert_subject(
    sp_subj_name IN Subject.subj_name%TYPE,
    sp_mem_id IN Subject.mem_id%TYPE
@@ -318,7 +280,16 @@ EXEC JUNDEV.INSERT_SUBJECT('java','profx');
 @ DESC : 성적
 =================================================
 */
---DEF_INSERT_GRADE
+-- TABLE CREATE ORDER #3
+DROP TABLE Grade CASCADE CONSTRAINT;
+CREATE TABLE Grade(
+	grade_seq INT CONSTRAINT grade_pk PRIMARY KEY,
+	grade VARCHAR2(5) NOT NULL,
+	term VARCHAR2(10) NOT NULL,
+	mem_id VARCHAR2(20) NOT NULL,
+	CONSTRAINT member_grade_fk FOREIGN KEY (mem_id)	REFERENCES Member(mem_id) ON DELETE CASCADE
+);
+--SP_INSERT_GRADE
 CREATE OR REPLACE PROCEDURE insert_grade(
    sp_grade IN Grade.grade%TYPE,
    sp_term IN Grade.term%TYPE,
@@ -333,7 +304,18 @@ COMMIT;
 @ DESC : QNA
 =================================================
 */
---DEF_INSERT_QNA
+-- TABLE CREATE ORDER #4
+DROP TABLE Board CASCADE CONSTRAINT;
+CREATE TABLE Board(
+	art_seq INT CONSTRAINT board_pk PRIMARY KEY,
+	category VARCHAR2(20) NOT NULL UNIQUE,
+	title VARCHAR2(30) DEFAULT 'NO TITLE',
+	reg_date VARCHAR2(20) NOT NULL,
+	content VARCHAR2(100) DEFAULT 'NO CONTENT',
+	mem_id VARCHAR2(20),
+	CONSTRAINT member_board_fk FOREIGN KEY (mem_id) REFERENCES Member(mem_id) ON DELETE CASCADE
+);
+--SP_INSERT_QNA
 CREATE OR REPLACE PROCEDURE insert_qna(
    sp_art_seq IN Board.art_seq%TYPE,
    sp_category IN Board.category%TYPE,
@@ -355,7 +337,7 @@ COMMIT;
 @ DESC : 공지사항
 =================================================
 */
---DEF_INSERT_NOTICE
+--SP_INSERT_NOTICE
 CREATE OR REPLACE PROCEDURE insert_notice(
    sp_category IN Board.category%TYPE,
    sp_title IN Board.title%TYPE,
@@ -371,7 +353,26 @@ COMMIT;
 @ DESC : 시험
 =================================================
 */
---DEF_INSERT_EXAM
+-- TABLE CREATE ORDER #5
+DROP TABLE Subject CASCADE CONSTRAINT;
+CREATE TABLE Subject(
+	subj_seq INT CONSTRAINT subject_pk PRIMARY KEY,
+	subj_name VARCHAR2(20) NOT NULL UNIQUE,
+	mem_id VARCHAR2(20) NOT NULL,
+	CONSTRAINT member_subject_fk FOREIGN KEY (mem_id) REFERENCES Member(mem_id) ON DELETE CASCADE
+);
+-- TABLE CREATE ORDER #6
+DROP TABLE Exam CASCADE CONSTRAINT;
+CREATE TABLE Exam(
+	exam_seq INT CONSTRAINT exam_seq PRIMARY KEY,
+	term VARCHAR2(10) NOT NULL,
+	score INT DEFAULT 0,
+	subj_seq INT,
+	mem_id VARCHAR2(20),
+	CONSTRAINT subject_exam_fk FOREIGN KEY (subj_seq) REFERENCES Subject(subj_seq) ON DELETE CASCADE,
+	CONSTRAINT member_exam_fk FOREIGN KEY (mem_id) REFERENCES Member(mem_id) ON DELETE CASCADE
+);
+--SP_INSERT_EXAM
 CREATE OR REPLACE PROCEDURE insert_exam(
    sp_term IN Exam.term%TYPE,
    sp_score IN Exam.score%TYPE,
@@ -379,7 +380,7 @@ CREATE OR REPLACE PROCEDURE insert_exam(
    sp_mem_id IN Exam.mem_id%TYPE
 )AS BEGIN INSERT INTO Exam(exam_seq, term, score, subj_seq, mem_id) VALUES(exam_seq.NEXTVAL, sp_term, sp_score, sp_subj_seq, sp_mem_id); END insert_exam;
 COMMIT;
---DEF_COUNT_MAJOR
+--SP_COUNT_MAJOR
 CREATE OR REPLACE PROCEDURE count_major(
     sp_count OUT NUMBER
 ) AS BEGIN SELECT COUNT(*) into sp_count FROM Major; END count_major;
@@ -390,7 +391,7 @@ count_major(sp_count);
 DBMS_OUTPUT.put_line ('카운트:'||sp_count);
 END;
 
---DEF_ALL_MAJOR
+--SP_ALL_MAJOR
 CREATE OR REPLACE PROCEDURE JUNDEV.all_major(
     sp_result OUT CLOB
 ) AS
@@ -420,7 +421,7 @@ DECLARE
         DBMS_OUTPUT.PUT_LINE(sp_result);
 END;
 
---DEF_FIND_STUDENT_BY_NAME
+--SP_FIND_STUDENT_BY_NAME
 CREATE OR REPLACE PROCEDURE find_student(
     sp_mem_id IN OUT Member.mem_id%TYPE,
     sp_name OUT Member.name%TYPE,
@@ -433,14 +434,14 @@ DECLARE sp_mem_id VARCHAR2(50) := 'hong'; sp_name VARCHAR2(50); sp_result VARCHA
 BEGIN find_student(sp_mem_id, sp_name, sp_result);
 DBMS_OUTPUT.put_line (sp_result);
 END;
---DEF_UPDATE_MAJOR
+--SP_UPDATE_MAJOR
 CREATE OR REPLACE PROCEDURE update_major(
     sp_major_seq IN Major.major_seq%TYPE,
     sp_title IN Major.title%TYPE
 )AS BEGIN UPDATE Major SET title = sp_title WHERE major_seq = sp_major_seq; END;
 
 BEGIN update_major(1001,'경영학부');END;
---DEF_DELETE_MAJOR
+--SP_DELETE_MAJOR
 CREATE OR REPLACE PROCEDURE delete_major(
     sp_major_seq IN Major.major_seq%TYPE
 )

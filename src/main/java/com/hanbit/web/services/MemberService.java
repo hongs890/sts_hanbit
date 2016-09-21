@@ -5,14 +5,17 @@ package com.hanbit.web.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
 import com.hanbit.web.util.CommonService;
 
+@Component
 public interface MemberService extends CommonService{
-	public String regist(MemberDTO mem);
+	public String regist(Command command);
 	public void update(MemberDTO mem);
-	public void delete(MemberDTO mem);
-	public MemberDTO findById(String mem);
+	public MemberDTO findOne(Command command);
 	public MemberDTO login(MemberDTO member);
 	public List<?> findByName(String findName);
 }

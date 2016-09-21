@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
 import com.hanbit.web.mappers.MemberMapper;
 import com.hanbit.web.services.MemberService;
@@ -15,13 +16,13 @@ import com.hanbit.web.services.MemberService;
 @Service
 public class MemberServiceImpl implements MemberService {
 	@Autowired private SqlSession sqlSession;
-
+	@Autowired private Command command;
 	@Override
-	public String regist(MemberDTO mem) {
+	public String regist(Command command) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		String msg = "";
-		if (mapper.insert(mem)==1) {
-			msg = mapper.findById(mem.getId()).getName();
+		if (mapper.insert(command)==1) {
+			msg = mapper.findOne(command).getId();
 		}
 		return msg;
 	}
@@ -31,10 +32,9 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.count();
 	}
 	@Override
-	public MemberDTO findById(String mem) {
+	public MemberDTO findOne(Command command) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		System.out.println("find by id : "+mem);
-		return mapper.findById(mem);
+		return mapper.findOne(command);
 	}
 	@Override
 	public List<?> list() {
@@ -59,28 +59,25 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberDTO login(MemberDTO member) {
 		MemberDTO mem = new MemberDTO();
+		command.setOption("mem_id");
+		command.setKeyword(member.getId());
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-			if (member.getId() != null && member.getPw() != null && mapper.findById(member.getId()) != null) {
-			mem = mapper.findById(member.getId());
+		if (member.getId() != null && member.getPw() != null && mapper.findOne(command) != null) {
+			mem = mapper.findOne(command);
 			if (member.getPw().equals(mem.getPw())) {
 				return mem;
 			}else{
+				System.out.println("fail 1번");
 				mem.setId("fail");
 			}
 		}else{
+			System.out.println("fail 2번");
 			mem.setId("fail");
 		}
 		return mem;
 	}
 	@Override
 	public void update(MemberDTO mem) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void delete(MemberDTO mem) {
-		// TODO Auto-generated method stub
-		
-	}
 
+	}
 }

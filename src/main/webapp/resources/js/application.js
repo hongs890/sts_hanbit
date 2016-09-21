@@ -1,5 +1,5 @@
 var app = (function(){
-	var init = function(context){session.init(context);	member.init();user.init();	account.init();	kaup.init();grade.init();navi.init();admin.init();onCreate();};
+	var init = function(context){session.init(context);user.init();	account.init();	kaup.init();grade.init();navi.init();admin.init();member.init();onCreate();};
 	var context = function(){return session.getContextPath();};
 	var js = function(){return sessionStorage.getItem('js');};
 	var css = function() {return sessionStorage.getItem('css');};
@@ -15,8 +15,8 @@ var app = (function(){
 		$('#global_content h2').addClass('media-heading').css('font-size','50px').css('margin-top','200px').css('margin-left','50px').text('HANBIT ACADEMY');
 		$('#global_content h4').text('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, ');
 		$('#global_content a').addClass('cursor_pointer');
-		$('#global_content_a_regist').addClass('btn').addClass('btn-warning').text('Sign Up').click(function(){controller.move('member','regist')});
-		$('#global_content_a_login').addClass('btn').addClass('btn-warning').text('Login').click(function(){controller.move('member','login')});
+		$('#global_content_a_regist').addClass('btn').addClass('btn-warning').text('Sign Up').click(function(){member.pub_regist()});
+		$('#global_content_a_login').addClass('btn').addClass('btn-warning').text('Login').click(function(){member.pub_login_form()});
 		$('#global_content_a_admin').addClass('btn').addClass('btn-warning').text('Admin').click(function(){admin.check()});};
 	var onCreate = function() {
 		setContentView();
@@ -79,7 +79,14 @@ var admin = (function() {
 			else{alert('잘못된 비밀번호를 입력하셨습니다');}
 			}}};
 })();
-
+/*
+===================== JS_STUDENT =====================
+@ AUTHOR : hongs890@gmail.com
+@ CREATE DATE : 2016-9-8
+@ UPDATE DATE : 2016-9-20
+@ DESC : 학생
+=================================================
+*/
 var user = (function(){
 	var init = function() {onCreate();};
 	var setContentView = function(){
@@ -115,7 +122,7 @@ var user = (function(){
 		$('#a_list').click(function(){controller.move('account','list');})
 		$('#a_find_by_account').click(function(){controller.move('account','find_by_account');})
 		$('#a_count').click(function(){controller.move('account','count');})
-		$('#user_header #exit').click(function(){controller.home()});
+		$('#user_header #exit').on('click',function(){controller.home()});
 	};
 	return{init : init};
 })();
@@ -132,7 +139,7 @@ var account = (function(){
 		$('#bt_spec_show').click(member.spec());
 		$('#bt_make_account').click(this.spec());
 		$('#bt_deposit').click(this.deposit());
-		$('#bt_withdraw').click(this.withdraw());	
+		$('#bt_withdraw').click(this.withdraw());
 	};
 	return{
 		setAccountNo : setAccountNo,getAccountNo : getAccountNo,setMoney : setMoney,getMoney : getMoney,
@@ -159,7 +166,14 @@ var account = (function(){
 		}
 	};
 })();
-
+/*
+===================== JS_PROF =====================
+@ AUTHOR : hongs890@gmail.com
+@ CREATE DATE : 2016-9-8
+@ UPDATE DATE : 2016-9-20
+@ DESC : 교수
+=================================================
+*/
 var member = (function(){
 	var _ssn, _name, _gender, _age;
 	var setAge = function(age){this._age=age;}
@@ -192,6 +206,7 @@ var member = (function(){
 		$('#member_regist span').addClass('float_left').addClass('text_left').css('width','200px');
 		$('#member_regist #bt_join').addClass('btn').addClass('btn-warning');
 		$('#member_regist #bt_cancel').addClass('btn').addClass('btn-warning');
+		$('#member_regist #check_dup').addClass('btn').addClass('btn-warning');
 		$('#member_regist_form').addClass('form-horizontal').css('margin-top','5%').css('margin-right','20%');
 		$('#member_regist_form > div').addClass('form-group').addClass('form-group-lg');
 		$('#member_regist_form > div > label').addClass('col-sm-2').addClass('control-label');
@@ -212,6 +227,9 @@ var member = (function(){
 		$('#member_login_form > div > div > input').addClass('form-control');
 		$('#member_find_form').attr('action',app.context()+'/member/search')
 		$('#member_find_form input[type="hidden"]').attr('name','context').attr('value',app.img());
+	//	$('#member_login_form').attr('method','post').attr('action',app.context()+'/member/login')
+		$('#member_login_form input[type="hidden"]').attr('value',app.context());
+	//	$('#member_login_form input[type="submit"]').click(function(){('#member_login_form').submit();})
 	};
 	var onCreate = function(){
 		setContentView();
@@ -263,6 +281,191 @@ var member = (function(){
 		     document.querySelector('#result_name').innerHTML =getName();
 		     document.querySelector('#result_gender').innerHTML = getGender();
 		     document.querySelector('#result_age').innerHTML = Math.floor(getAge());
+		},
+		pub_login_form : function(){
+			var view = '<section id="member_login">'
+				+'<div><img id="member_login_img"></div>'
+				+'<div>'
+				+'<form id="member_login_form">'
+				+'<h1>Login</h1><br/>'
+				+'<div><label for="exampleInputEmail1">ID</label><div><input type="text" id="id" name="id"></div></div>'
+				+'<div><label for="exampleInputEmail1">PW</label><div><input type="text" id="pw" name="pw"></div></div>'
+				+'<input type="hidden" name="context">'
+				+'<input id="bt_login" type="submit" value="Login" />'
+				+'<input id="bt_cancel" type="reset" value="Cancel" />'
+				+'</form>'
+				+'</div>'
+				+'</section>';
+			
+			$('#pub_article').html(view);
+			member.init();
+			$('#bt_login').click(function(e){
+				e.preventDefault();
+				$.ajax({
+					url : app.context()+'/member/login',
+					type : 'POST',
+					data : {'id':$('#id').val(),'pw':$('#pw').val()},
+					dataType : 'json',
+					success : function(data){
+						if (data.id === 'fail') {
+							alert('ID나 비밀번호가 일치하지 않습니다.');
+						}else{
+							alert('환영합니다 '+data.name+' 님');
+						var view = 
+			'<link rel="stylesheet" type="text/css" href="'+app.css()+'/normalize.css">'
+			+'<link rel="stylesheet" type="text/css" href="'+app.css()+'/owl.css">'
+			+'<link rel="stylesheet" type="text/css" href="'+app.css()+'/animate.css">'
+			+'<link rel="stylesheet" type="text/css" href="'+app.css()+'/cardio.css">'
+			+'<link rel="stylesheet" type="text/css" href="'+app.css()+'/et-icons.css">'
+			+'<section id="user_content" class="section section-padded">'
+			+'<div class="container">'
+			+'<video autoplay="" loop="" class="fillWidth fadeIn wow collapse in" data-wow-delay="0.5s" poster="https://s3-us-west-2.amazonaws.com/coverr/poster/Traffic-blurred2.jpg" id="video-background">'
+			+'<source src="https://s3-us-west-2.amazonaws.com/coverr/mp4/Traffic-blurred2.mp4" type="video/mp4">Your browser does not support the video tag. I suggest you upgrade your browser.'
+			+'</video>'
+			+'<div class="row text-center title">'
+			+'<h2 class="light muted">Services</h2>'
+			+'<h4 class="light muted">Achieve the best results with our wide variety of training options!</h4>'
+			+'</div>'
+			+'<div class="row services">'
+			+'<div class="col-md-4">'
+			+'<div id="kaup" class="service">'
+			+'<div class="icon-holder">'
+			+'<img src="'+app.img()+'/icons/kaup.png" alt="" class="icon">'
+			+'</div>'
+			+'<h4 class="heading">KAUP</h4>'
+			+'<p class="description">A elementum ligula lacus ac quam ultrices a scelerisque praesent vel suspendisse scelerisque a aenean hac montes.</p>'
+			+'</div>'
+			+'</div>'
+			+'<div class="col-md-4">'
+			+'<div id="rockSissorPaper" class="service">'
+			+'<div class="icon-holder">'
+			+'<img src="'+app.img()+'/icons/rock.png" alt="" class="icon">'
+			+'</div>'
+			+'<h4 class="heading">ROCK SISSOR PAPER</h4>'
+			+'<p class="description">A elementum ligula lacus ac quam ultrices a scelerisque praesent vel suspendisse scelerisque a aenean hac montes.</p>'
+			+'</div>'
+			+'</div>'
+			+'<div class="col-md-4">'
+			+'<div id ="lotto" class="service">'
+			+'<div class="icon-holder">'
+			+'<img src="'+app.img()+'/icons/lotto.png" alt="" class="icon">'
+			+'</div>'
+			+'<h4 class="heading">LOTTO DRAWING</h4>'
+			+'<p class="description">A elementum ligula lacus ac quam ultrices a scelerisque praesent vel suspendisse scelerisque a aenean hac montes.</p>'
+			+'</div>'
+			+'</div>'
+			+'<div class="col-md-4">'
+			+'<div id="major_subject_1" class="service">'
+			+'<div class="icon-holder">'
+			+'<img src="'+app.img()+'/icons/java.png" alt="" class="icon">'
+			+'</div>'
+			+'<h4 class="heading">JAVA</h4>'
+			+'<p class="description">A elementum ligula lacus ac quam ultrices a scelerisque praesent vel suspendisse scelerisque a aenean hac montes.</p>'
+			+'<input type="hidden" name="major_subject_1" value="java">'
+			+'</div>'
+			+'</div>'
+			+'<div class="col-md-4">'
+			+'<div id="major_subject_2" class="service">'
+			+'<div class="icon-holder">'
+			+'<img src="'+app.img()+'/icons/javascript.png" alt="" class="icon">'
+			+'</div>'
+			+'<h4 class="heading">JAVA SCRIPT</h4>'
+			+'<p class="description">A elementum ligula lacus ac quam ultrices a scelerisque praesent vel suspendisse scelerisque a aenean hac montes.</p>'
+			+'<input type="hidden" name="major_subject_2" value="javascript">'
+			+'</div>'
+			+'</div>'
+			+'<div class="col-md-4">'
+			+'<div id="major_subject_3" class="service">'
+			+'<div class="icon-holder">'
+			+'<img src="'+app.img()+'/icons/sql.png" alt="" class="icon">'
+			+'</div>'
+			+'<h4 class="heading">SQL</h4>'
+			+'<p class="description">A elementum ligula lacus ac quam ultrices a scelerisque praesent vel suspendisse scelerisque a aenean hac montes.</p>'
+			+'<input type="hidden" name="major_subject_3" value="sql">'
+			+'</div>'
+			+'</div>'
+			+'</div>'
+			+'</div>'
+			+'<div class="cut cut-bottom"></div>'
+			+'</section>';
+			$('#pub_header').empty().load(app.context()+'/member/logined/header');
+			$('#pub_article').html(view);
+			$('#pub_header').on('click','#exit',function(){location.href = app.context()+'/member/logout';});
+			member.init();
+						}
+					},
+				error : function(xhr,status,msg){
+				alert('로그인 실패 이유 : '+msg);
+				}
+			});
+		});
+	},
+		pub_regist : function(){
+			var view = '<section id="member_regist">'
+				+'<div>'
+				+'<img id="member_regist_img">'
+				+'</div>'
+				+'<div>'
+				+'<h1>Sign Up</h1>'
+				+'<form id="member_regist_form">'
+				+'<div><label for="exampleInputEmail1">ID</label><div id="id_box"><input type="text" id="id" placeholder=" "><input type="button" id="check_dup" value="중복확인"></div></div>'
+				+'<div><label for="exampleInputEmail1">Password</label><div><input type="text" id="pw" ></div></div>'
+				+'<div><label for="exampleInputEmail1">Name</label><div><input type="text" id="username"></div></div>'
+				+'<div><label for="exampleInputEmail1">SSN</label><div><input type="text" id="ssn" ></div></div>'
+				+'<div><label for="exampleInputEmail1">E-Mail</label><div><input type="text" id="email"></div></div>'
+				+'<div><label for="exampleInputEmail1">Phone</label><div><input type="text" id="phone"></div></div>'
+				+'<div><label for="exampleInputEmail1">Major</label><div>'
+				+'<div id="rd_major">'
+				+'<label><input type="radio" name="major" value="computer" checked>Computer</label>'
+				+'<label><input type="radio" name="major" value="mgmt">Manage</label>'
+				+'<label><input type="radio" name="major" value="math">Math</label>'
+				+'<label><input type="radio" name="major" value="eng">English</label></div></div></div>'
+				+'<div><label for="exampleInputEmail1">Subject</label><div>'
+				+'<div id="ck_subject">'
+				+'<label><input type="checkbox" name="subject" value="java"> Java </label>'
+				+'<label><input type="checkbox" name="subject" value="sql"> SQL </label>'
+				+'<label><input type="checkbox" name="subject" value="cpp"> C++ </label>'
+				+'<label><input type="checkbox" name="subject" value="phython"> Phython </label>'
+				+'<label><input type="checkbox" name="subject" value="delphi"> Delphi </label>'
+				+'<label><input type="checkbox" name="subject" value="html"> HTML </label><br/></div></div></div>'
+				+'<input id="bt_join" type="submit" value="Submit" />'
+				+'<input id="bt_cancel" type="reset" value="Cancel" />'
+				+'</form>'
+				+'</div>'
+				+'</section>';
+			$('#pub_article').html(view);
+			member.init();
+			$('#bt_join').click(function(){
+				$.ajax({
+					url : app.context()+'/member/signup',
+					data : {},
+					dataType : '',
+					success : function(data){
+						
+					},
+					error : function(x,s,e){
+						alert('회원가입시 에러발생 : '+e);
+					},
+				});
+			});
+			$('#check_dup').click(function(){
+				$.ajax({
+					url : app.context()+'/member/check_dup/'+$('#id').val(),
+					success : function(data){
+						if (data.flag === "TRUE") {
+							$('#id_box').html('<input type="text" id="id" placeholder="'+data.message+'"><input type="button" id="check_dup" value="다시조회">');
+							member.init();
+						} else {
+							$('#id_box').html('<input type="text" id="id" placeholder="'+data.message+'"><input type="button" id="check_dup" value="그대로사용">');
+							member.init();
+						}
+					},
+					error : function(x,s,m){
+						alert('id 중복체크시 발생한 에러 : ' + m);
+					}
+				});
+				
+			});
 		}
 	};
 })();
