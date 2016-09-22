@@ -13,7 +13,7 @@ import com.hanbit.web.util.CommonService;
 
 @Component
 public interface MemberService extends CommonService{
-	public String regist(Command command);
+	public String regist(MemberDTO member);
 	public void update(MemberDTO mem);
 	public MemberDTO findOne(Command command);
 	public MemberDTO login(MemberDTO member);

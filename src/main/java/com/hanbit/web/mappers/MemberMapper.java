@@ -12,7 +12,7 @@ import com.hanbit.web.domains.MemberDTO;
 public interface MemberMapper{
 	public String regist(MemberDTO mem);
 	public MemberDTO findOne(Command command);
-	public int insert(Command command);
+	public int insert(MemberDTO member);
 	public void update(MemberDTO mem);
 	public void delete(MemberDTO mem);
 	public List<?> list();

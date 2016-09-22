@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -80,9 +81,16 @@ public class MemberController {
 		return "user:user/content.tiles";
 	}
 
-	@RequestMapping("/signup")
-	public @ResponseBody Retval signup(){
+	@RequestMapping(value="/signup", method=RequestMethod.POST)
+	public @ResponseBody Retval signup(@RequestBody MemberDTO param){
 		logger.info("SIGN UP :: {}","EXECUTE");
+		retval.setMessage("success");
+		param.setGender("MALE");
+		param.setRegDate("2016-09-11");
+		param.setProfileImg("default.jpg");
+		param.setRole("STUDENT");
+		param.setMajorSeq(1001);
+		service.regist(param);
 		return retval;
 	}
 	@RequestMapping("/check_dup/{id}")
@@ -90,12 +98,13 @@ public class MemberController {
 		command.setKeyword(id);
 		command.setOption("mem_id");
 		if (service.findOne(command) != null) {
-			retval.setFlag("FALSE");
+			retval.setFlag("TRUE");
 			retval.setMessage("입력하신 ID는 이미 존재합니다.");
 			
 		} else {
-			retval.setFlag("TRUE");
+			retval.setFlag("FALSE");
 			retval.setMessage("입력하신 ID는 사용 가능합니다.");
+			retval.setTemp(id);
 		}
 		logger.info("FLAG :: {}",retval.getFlag());
 		logger.info("MESSAGE :: {}",retval.getMessage());

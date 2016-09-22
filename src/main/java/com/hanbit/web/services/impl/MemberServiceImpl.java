@@ -18,13 +18,8 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired private SqlSession sqlSession;
 	@Autowired private Command command;
 	@Override
-	public String regist(Command command) {
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		String msg = "";
-		if (mapper.insert(command)==1) {
-			msg = mapper.findOne(command).getId();
-		}
-		return msg;
+	public String regist(MemberDTO member) {
+		return (sqlSession.getMapper(MemberMapper.class).insert(member)==-1)?"success":"fail"; 
 	}
 	@Override
 	public int count() {
