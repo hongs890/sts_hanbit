@@ -75,4 +75,10 @@ public class MemberServiceImpl implements MemberService {
 	public void update(MemberDTO mem) {
 
 	}
+	@Override
+	public String delete(MemberDTO mem) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		String temp = String.valueOf(mapper.delete(mem));
+		return temp;
+	}
 }

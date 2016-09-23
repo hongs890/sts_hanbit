@@ -233,6 +233,11 @@ BEGIN
 END insert_prof;
 --EXE_INSERT_PROF
 EXEC JUNDEV.INSERT_PROF('profx','1','찰스','MALE','2010-06-01','700101','profx@test.com','default.jpg','PROF','010-1234-5678');
+--SP_DELETE_STUDENT
+CREATE OR REPLACE PROCEDURE delete_student(
+    sp_mem_id IN Member.mem_id%TYPE
+)
+AS BEGIN DELETE FROM Member WHERE mem_id = sp_mem_id; END delete_student;
 /*
 ===================== MEMBER_STUDENT =====================
 @ AUTHOR : hongs890@gmail.com

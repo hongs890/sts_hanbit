@@ -111,26 +111,38 @@ public class MemberController {
 		return retval;
 	}
 	
-	@RequestMapping("/detail")
-	public String moveDetail(){	
+	@RequestMapping(value="/detail")
+	public @ResponseBody MemberDTO moveDetail(){	
 		logger.info("GO :: {}","detail");
-		return "user:member/detail.tiles";
+		return member;
 	}
+	
 	@RequestMapping("/a_detail")
 	public String moveDetail(@RequestParam("key") String key){	
 		logger.info("GO :: {}","a_detail");
 		logger.info("KEY :: {}",key);
 		return "admin:member/a_detail.tiles";
 	}
-	@RequestMapping("/update")
-	public String moveUpdate(){
+	@RequestMapping(value="/update", method=RequestMethod.POST)
+	public @ResponseBody Retval moveUpdate(@RequestParam("pw") String pw,@RequestParam("email") String email,
+			@RequestParam("phone") String phone){
 		logger.info("GO :: {}","update");
-		return "user:member/update.tiles";
+		retval.setMessage("success");
+		System.out.println("pw : " + pw);
+		System.out.println("email : " + email);
+		System.out.println("phone : " + phone);
+		return retval;
 	}
-	@RequestMapping("/delete")
-	public String moveDelete(){
-		logger.info("GO :: {}","delete");
-		return "user:member/delete.tiles";
+	@RequestMapping(value="/unregist", method=RequestMethod.POST)
+	public @ResponseBody Retval moveUnregist(@RequestParam("pw") String pw){
+		logger.info("GO:: {}","unregist");
+		if (pw.equals(member.getPw())) {
+			retval.setMessage("success");
+			service.delete(member);
+		}else{
+			retval.setMessage("fail");
+		}
+		return retval;
 	}
 	@RequestMapping("/login")
 	public String login(){

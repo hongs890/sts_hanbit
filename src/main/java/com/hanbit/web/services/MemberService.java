@@ -18,4 +18,5 @@ public interface MemberService extends CommonService{
 	public MemberDTO findOne(Command command);
 	public MemberDTO login(MemberDTO member);
 	public List<?> findByName(String findName);
+	public String delete(MemberDTO member);
 }

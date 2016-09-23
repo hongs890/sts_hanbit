@@ -52,7 +52,7 @@ var session = (function(){
 		sessionStorage.setItem('context',context);
 		sessionStorage.setItem('js',context+'/resources/js');
 		sessionStorage.setItem('css',context+'/resources/css');
-		sessionStorage.setItem('img',context+'/resources/img/default');
+		sessionStorage.setItem('img',context+'/resources/img');
 		};
 	var getContextPath = function(){return sessionStorage.getItem('context')};
 	return{init:init, getContextPath:getContextPath}
@@ -212,7 +212,7 @@ var member = (function(){
 	var onCreate = function(){
 		setContentView();
 		$('#regist').click(function(){controller.move('member','regist');})
-		$('#detail').click(function(){controller.move('member','detail');})
+		
 		$('#update').click(function(){controller.move('member','update');})
 		$('#delete').click(function(){controller.move('member','delete');})
 		$('#login').click(function(){controller.move('member','login');})
@@ -278,6 +278,7 @@ var member = (function(){
 							$('#pub_article').html(student_main);
 							$('#pub_header').empty().load(app.context()+'/member/logined/header');
 							$('#pub_header').on('click','#exit',function(){location.href = app.context()+'/member/logout';});
+							$('#pub_header').on('click','#u_detail',function(){member.detail();});
 						}
 					},
 				error : function(xhr,status,msg){
@@ -357,6 +358,73 @@ var member = (function(){
 			});
 			
 	
+		},
+		detail : function(){
+			$('#pub_header').empty().load(app.context()+'/member/logined/header');
+			$('#pub_article').html(detail_form);
+				$.getJSON(app.context()+'/member/detail',function(data){
+						 $('#member_detail #detail_img').attr('src',app.img()+'/member/'+data.profileImg);
+						 $('#member_detail #detail_id').text(data.id);
+						 $('#member_detail #detail_pw').text(data.pw);
+						 $('#member_detail #detail_name').text(data.name);
+						 $('#member_detail #detail_gender').text(data.gender);
+						 $('#member_detail #detail_email').text(data.email);
+						 $('#member_detail #detail_phone').text(data.phone);
+						 $('#member_detail #detail_major').text('test');
+						 $('#member_detail #detail_subject').text('test');
+						 $('#member_detail #detail_ssn').text(data.ssn);
+						 $('#member_detail #detail_regDate').text(data.regDate);	
+						 $('#go_update').click(function(){
+							 $('#member_detail #detail_pw').html('<input id="update_pw"></input>');
+							 $('#member_detail #detail_email').html('<input id="update_email"></input>');
+							 $('#member_detail #detail_phone').html('<input id="update_phone"></input>');	
+							 $('#go_update2').html('<input id="go_update3" type="button" value="finish update"></input>');
+							 $('#go_update3').click(function(){
+								 $.ajax({
+								 		url : app.context()+'/member/update',
+								 		type : 'POST',
+								 		data : {'pw':$('#update_pw').val(), 'email':$('#update_email').val(), 'phone':$('#update_phone').val()},
+								 		dataType : 'json',
+								 		success : function(data){
+								 			if (data.message === 'success') {
+								 				alert('업데이트가 성공적으로 완료되었습니다.');
+												member.detail();
+											}else{
+												alert('업데이트 실패');
+											}
+												
+								 		},
+								 		error : function(x,s,m){
+								 			alert('업데이트시 오류 발생'+m);
+								 		}
+								 	});
+							 });
+						 });
+						 $('#go_unregist').click(function(){
+							 $('#pub_article').html(unregist_form);
+							 $('#submit_unregist').click(function(){
+							 	$.ajax({
+							 		url : app.context()+'/member/unregist',
+							 		type : 'POST',
+							 		data : {'pw':$('#input_unregist').val()},
+							 		dataType : 'json',
+							 		success : function(data){
+											 if (data.message === 'success') {
+												alert('unregist 성공');
+											}else{
+												alert('unregist 실패');
+											}
+										
+							 		},
+							 		error : function(x,s,m){
+							 			alert('unregist시 알 수 없는 오류 발생'+m);
+							 		}
+							 	});
+							 	 });
+							
+						 });
+				});
+			
 		}
 	};
 })();
@@ -445,6 +513,65 @@ var student_main =
 	+'</div>'
 	+'<div class="cut cut-bottom"></div>'
 	+'</section>';
+var detail_form = 
+	'<div style="text-align: center">'
+	+'<table id="member_detail">'
+	+'<tr>'
+	+'<td rowspan="6" style="width:30%">'
+	+'<img id="detail_img" src="" width="200" height="200"></td>'
+	+'<td style="width:20%" class="font_bold bg_color_yellow">ID</td>'
+	+'<td style="width:40%" id="detail_id"></td>'
+	+'</tr>'
+	+'<tr>'
+	+'<td class="font_bold bg_color_yellow">비밀번호</td>'
+	+'<td id="detail_pw"></td>'
+	+'</tr>'
+	+'<tr>'
+	+'<td class="font_bold bg_color_yellow">이 름</td>'
+	+'<td id="detail_name"></td>'
+	+'</tr>'
+	+'<tr>'
+	+'<td class="font_bold bg_color_yellow">성 별</td>'
+	+'<td id="detail_gender"></td>'
+	+'</tr>'
+	+'<tr>'
+	+'<td class="font_bold bg_color_yellow">이메일</td>'
+	+'<td id="detail_email"></td>'
+	+'</tr>'
+	+'<tr>'
+	+'<td class="font_bold bg_color_yellow">핸드폰 번호</td>'
+	+'<td id="detail_phone"></td>'
+	+'</tr>'
+	+'<tr>'
+	+'<td class="font_bold bg_color_yellow">전공과목</td>'
+	+'<td colspan="2" id="detail_major"></td>'
+	+'</tr>'
+	+'<tr>'
+	+'<td class="font_bold bg_color_yellow">수강과목</td>'
+	+'<td colspan="2" id="detail_subject"></td>'
+	+'</tr>'
+	+'<tr>'
+	+'<td class="font_bold bg_color_yellow">생년월일</td>'
+	+'<td colspan="2" id="detail_ssn"></td>'
+	+'</tr>'
+	+'<tr>'
+	+'<td class="font_bold bg_color_yellow">등록일</td>'
+	+'<td colspan="2" id="detail_regDate"></td>'
+	+'</tr>'
+	+'</table><br/><br/>'
+	+'<div id="go_update2"><input type="button" value="Update" id="go_update"></div> <input type="button" value="UnRegist" id="go_unregist">'
+	+'<br/>'
+	+'</div>';
+var unregist_form = 
+	'<div class="box">'
+	+'<h1>Are you sure Delete Account?</h1><br/>'
+	+'<form id="member_delete_form" class="navbar-form navbar-center" role="search">'
+	+'<div class="form-group">'
+	+'<input type="text" id="input_unregist" class="form-control"><br/>'
+	+'</div>'
+	+'<input type="submit" class="btn btn-default" value="Delete Account" id="submit_unregist">'
+	+'</form> '
+	+'</div>';
 var user = (function(){
 	var init = function() {onCreate();};
 	var setContentView = function(){

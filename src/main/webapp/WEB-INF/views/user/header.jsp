@@ -32,15 +32,16 @@
       <ul class="nav navbar-nav navbar-right">
 <li style="text-align:right; margin-top:14px;">${user.name} Welcome!</li>
  <li><a id="exit"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>Logout</a></li>
+
     <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a id="detail">My Page</a></li>
+             <li><a id="u_detail">My Page</a></li>
             <li><a id="update">Update Info</a></li>
             <li><a id="delete">Delete Account</a></li>
           </ul>
         </li>
-          </ul>
+    </ul>
     </div>
   </div>
 </nav>

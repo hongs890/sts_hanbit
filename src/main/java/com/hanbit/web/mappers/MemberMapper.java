@@ -14,14 +14,10 @@ public interface MemberMapper{
 	public MemberDTO findOne(Command command);
 	public int insert(MemberDTO member);
 	public void update(MemberDTO mem);
-	public void delete(MemberDTO mem);
+	public int delete(MemberDTO member);
 	public List<?> list();
 	public List<?> findByName(String name);
 	public int count();
 	public MemberDTO login(MemberDTO param);
 	public List<?> findBy(String keyword);
-	public Map<?, ?> map();
-	public int existId(String id);
-	
-
 }

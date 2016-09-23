@@ -6,6 +6,11 @@
 	#{id},#{pw},#{name},#{gender},#{regDate},#{ssn},#{email},#{profileImg},#{role},#{phone},#{majorSeq}
 )}
 </insert>
+<delete id="delete" parameterType="com.hanbit.web.domains.MemberDTO" statementType="CALLABLE">
+{CALL jundev.delete_student(
+	#{id}
+)}
+</delete>
 <select id="list" resultType="com.hanbit.web.domains.MemberDTO">
 select * from member
 </select>
@@ -33,8 +38,4 @@ select count(*) as count from member
 <update id="update" parameterType="com.hanbit.web.domains.MemberDTO">
 update member set pw = #{pw}, email = #{email} where id = #{id}
 </update>
-<delete id="delete" parameterType="com.hanbit.web.domains.MemberDTO">
-delete from member where id = #{id} and pw = #{pw}
-</delete>
-
 </mapper>
