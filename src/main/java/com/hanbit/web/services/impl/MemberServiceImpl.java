@@ -1,7 +1,6 @@
 package com.hanbit.web.services.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,11 +62,9 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.findOne(command);
 	}
 	@Override
-	public List<?> findByName(String findName) {
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return mapper.findByName(findName);
+	public List<?> find(Command command) {
+		return sqlSession.getMapper(MemberMapper.class).find(command);
 	}
-
 	@Override
 	public List<MemberDTO> list(Command command) {
 		return sqlSession.getMapper(MemberMapper.class).list(command);

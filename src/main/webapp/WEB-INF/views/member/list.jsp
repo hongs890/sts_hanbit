@@ -1,26 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="context" value="<%=request.getContextPath() %>"/>
-<c:set var="pgSize" value="5"/>
-<c:choose>
-	<c:when test="${totCount % pgSize eq 0 }">
-		<c:set var="totPg" value="${totCount/pgSize }"/>
-	</c:when>
-	<c:otherwise>
-		<c:set var="totPg" value="${totCount/pgSize+1}"/>
-	</c:otherwise>
-</c:choose>
-<c:set var="startPg" value="${pgNum - ((pgNum-1)%pgSize) }"/>
-<c:choose>
-	<c:when test="${startPg + pgSize-1 le totPg }">
-		<c:set var="lastPg" value="${startPg + pgSize -1 }"/>
-	</c:when>
-	<c:otherwise>
-		<c:set var="lastPg" value="${totpg }"/>
-	</c:otherwise>
-</c:choose>
-
 <section class="text_center box" style="width:80%">
+<ul class="list-group">
+  <li class="list-group-item">총학생수 : ${totCount}</li>
+</ul>
 <table id="subject_detail">
 		<tr>
 			<td rowspan="4" style="width:30%">
@@ -43,9 +27,10 @@
       <th>PHONE</th>
       <th>GRADE<br/>REGIST/UPDATE </th>
     </tr>
-  <tr>
+  
   <tbody>
   <c:forEach items="${list}" var="member">
+ 	 <tr>
       <td>${member.id}</td>
       <td><a class="name">${member.name}</a></td>
       <td>${member.regDate}</td>
@@ -66,13 +51,13 @@
   	</a>
   	</li>
   </c:if>
-  <c:forEach begin="${startPg }" end="${lastPg }" step="1" varStatus="i">
+  <c:forEach begin="${startPg}" end="${lastPg}" step="1" varStatus="i">
   	<c:choose>
   		<c:when test="${i.index == pgNum }">
-  			<font color="red">${i.index }</font>
+  			<font color="red">${i.index}</font>
   		</c:when>
   		<c:otherwise>
-  			<a href="${context }/member/detail/${i.index}"></a>
+  			<a href="${context}/member/list/${i.index}">${i.index}</a>
   		</c:otherwise>
   	</c:choose>
   </c:forEach>
@@ -83,28 +68,13 @@
   </a>
  </li>
 </c:if>
-    <li>
-      <a href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li>
-      <a href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
+</ul>
 </nav>
 <div align="center">
 	<form action="${context}/member/search" method="post">
 		<select name="keyField" id="">
 			<option value="name" selected>이름</option>
-			<option value="id">ID</option>
+			<option value="mem_id">ID</option>
 		</select>
 		<input type="text" name="keyword" />
 		<input type="hidden" name="pgNum" />
@@ -112,11 +82,3 @@
 	</form>
 </div>
 </section>
-
-<script type="text/javascript">
-$(function(){
-	$('#member_list_table .name').click(function(){controller.moveWithKey('member','a_detail','hong');});
-	$('#member_list_table .regist').click(function(){controller.moveWithKey('grade','regist','hong');});
-	$('#member_list_table .update').click(function(){controller.moveWithKey('grade','update','hong');});
-});	
-</script>

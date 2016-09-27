@@ -18,8 +18,8 @@ public interface MemberService{
 	public String update(MemberDTO member);
 	public MemberDTO findOne(Command command);
 	public MemberDTO login(MemberDTO member);
-	public List<?> findByName(String findName);
 	public String delete(MemberDTO member);
 	public List<MemberDTO> list(Command command);
+	public List<?> find(Command command);
 	public int count();
 }

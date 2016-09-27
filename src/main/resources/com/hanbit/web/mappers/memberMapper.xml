@@ -27,8 +27,9 @@ m.email email,
 m.profile_img profileImg,
 m.role role,
 m.phone phone,
-m.major_seq majorSeq from Member m order by reg_date desc) t)t2
-where t2.seq between ${start} and ${end}
+m.major_seq majorSeq 
+from Member m order by reg_date desc) t)t2
+where t2.seq between #{start} and #{end}
 order by t2.seq asc
 </select>
 <select id="findOne" parameterType="com.hanbit.web.domains.Command" resultType="com.hanbit.web.domains.MemberDTO">
@@ -51,7 +52,7 @@ from member where ${option} = #{keyword}
 		#{count, mode=OUT, jdbcType=NUMERIC}
 	)}
 </select>
-<select id="findByName" parameterType="string" resultType="com.hanbit.web.domains.MemberDTO">
-select * from member where name = #{name}
+<select id="find" parameterType="com.hanbit.web.domains.Command" resultType="com.hanbit.web.domains.MemberDTO">
+select * from Member where ${keyField} = #{keyword}
 </select>
 </mapper>

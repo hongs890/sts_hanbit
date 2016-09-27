@@ -16,7 +16,6 @@ public interface MemberMapper{
 	public int update(MemberDTO member);
 	public int delete(MemberDTO member);
 	public List<MemberDTO> list(Command command);
-	public List<?> findByName(String name);
+	public List<MemberDTO> find(Command command);
 	public Integer count(Retval val);
-	public List<?> findBy(String keyword);
 }
