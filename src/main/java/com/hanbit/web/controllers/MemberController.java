@@ -1,6 +1,9 @@
 package com.hanbit.web.controllers;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,73 +20,46 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.hanbit.web.constants.Values;
 import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
 import com.hanbit.web.domains.Retval;
 import com.hanbit.web.services.impl.MemberServiceImpl;
+import com.hanbit.web.util.Pagination;
 
 @Controller
 @SessionAttributes({"user", "js", "css", "img", "context"})
 @RequestMapping("/member")
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
-	@Autowired MemberServiceImpl service;
-	@Autowired Command command;
-	@Autowired MemberDTO member;
-	@Autowired Retval retval;
+	
+	@Autowired private MemberServiceImpl service;
+	@Autowired private Command command;
+	@Autowired private MemberDTO member;
+	@Autowired private Retval retval;
 	@RequestMapping("/search/{option}/{keyword}")
 	public MemberDTO find(@PathVariable("option") String option,
 			@PathVariable("keywrod") String keyword, Model model){
-		logger.info("TO SEARCH KEYWORD IS {}",keyword);
-		logger.info("TO SEARCH OPTION IS {}",option);
+		logger.info("== MEMBER CONTROLLER FIND :: KEYWORD :: {} ==",keyword);
 		command.setKeyword(keyword);
 		command.setOption(option);
 		return service.findOne(command);
 	}
 	@RequestMapping(value="/count/{option}")
 	public Model count(@PathVariable("option")String option, Model model){
-		logger.info("TO COUNT CONDITION IS :{}", option);
+		logger.info("== MEMBER CONTROLLER COUNT :: OPTION :: {} ==", option);
 		model.addAttribute("count", service.count());
 		return model;
 	}
 	@RequestMapping("/logined/header")
 	public String loginedHeader(){
-		logger.info("THIS PATH IS {}","LOGINED_HEADER");
 		return "user/header.jsp";
 		
 	}
 	
-	
-	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public @ResponseBody MemberDTO login(@RequestParam("id") String id,
-			@RequestParam("pw") String pw, HttpSession session) {
-		logger.info("TO LOGIN ID :: {}",id);
-		logger.info("TO LOGIN PW :: {}",pw);
-		member.setId(id);
-		member.setPw(pw);
-		member = service.login(member);
-		if (member.getId().equals("fail")) {
-			logger.info("LOGIN FAIL","!!!!!");
-			return member;
-		}else{
-			logger.info("LOGIN SUCCESS","!!!!!");
-			session.setAttribute("user", member);
-			member = service.findOne(command);
-			return member;
-		}
-
-	}
-	
-	// move//
-	@RequestMapping("/main")
-	public String goMain() {
-		logger.info("GO :: {}","main");
-		return "user:user/content.tiles";
-	}
-
 	@RequestMapping(value="/signup", method=RequestMethod.POST)
 	public @ResponseBody Retval signup(@RequestBody MemberDTO param){
-		logger.info("SIGN UP :: {}","EXECUTE");
+		logger.info("== MEMBER CONTROLLER SIGNUP :: ID :: {} ==",param.getId());
 		retval.setMessage("success");
 		param.setGender("MALE");
 		param.setRegDate("2016-09-11");
@@ -95,6 +71,7 @@ public class MemberController {
 	}
 	@RequestMapping("/check_dup/{id}")
 	public @ResponseBody Retval checkDup(@PathVariable String id){
+		logger.info("== MEMBER CONTROLLER CHECKDUP :: ID :: {} ==",id);
 		command.setKeyword(id);
 		command.setOption("mem_id");
 		if (service.findOne(command) != null) {
@@ -106,86 +83,89 @@ public class MemberController {
 			retval.setMessage("입력하신 ID는 사용 가능합니다.");
 			retval.setTemp(id);
 		}
-		logger.info("FLAG :: {}",retval.getFlag());
-		logger.info("MESSAGE :: {}",retval.getMessage());
 		return retval;
 	}
-	
+	@RequestMapping(value="/login",method=RequestMethod.POST)
+	public @ResponseBody MemberDTO login(@RequestParam("id") String id,
+			@RequestParam("pw") String pw, HttpSession session) {
+		logger.info("== MEMBER CONTROLLER LOGIN :: ID :: {} ==",id);
+		member.setId(id);
+		member.setPw(pw);
+		MemberDTO user = service.login(member);
+		if (user.getId().equals("fail")) {
+			return user;
+		}else{
+			session.setAttribute("user", user);
+			session.setAttribute("pw", user.getPw());
+			session.setAttribute("email", user.getEmail());
+			session.setAttribute("phone", user.getPhone());
+			return user;
+		}
+
+	}
 	@RequestMapping(value="/detail")
-	public @ResponseBody MemberDTO moveDetail(){	
-		logger.info("GO :: {}","detail");
-		return member;
+	public @ResponseBody MemberDTO moveDetail(HttpSession session){	
+		logger.info("== MEMBER CONTROLLER DETAIL :: DETAIL :: {} ==","SUCCESS");
+		return (MemberDTO) session.getAttribute("user");
 	}
 	
-	@RequestMapping("/a_detail")
-	public String moveDetail(@RequestParam("key") String key){	
-		logger.info("GO :: {}","a_detail");
-		logger.info("KEY :: {}",key);
-		return "admin:member/a_detail.tiles";
-	}
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public @ResponseBody Retval moveUpdate(@RequestParam("pw") String pw,@RequestParam("email") String email,
-			@RequestParam("phone") String phone){
-		logger.info("GO :: {}","update");
+	public @ResponseBody Retval moveUpdate(@RequestBody MemberDTO param, HttpSession session){
+		logger.info("== MEMBER CONTROLLER UPDATE :: UPDATE :: {} ==","SUCCESS");
+		MemberDTO temp = (MemberDTO) session.getAttribute("user");
+		temp.setPw(param.getPw());
+		temp.setEmail(param.getEmail());
+		temp.setPhone(param.getPhone());
+		service.update(temp);
 		retval.setMessage("success");
-		System.out.println("pw : " + pw);
-		System.out.println("email : " + email);
-		System.out.println("phone : " + phone);
 		return retval;
 	}
 	@RequestMapping(value="/unregist", method=RequestMethod.POST)
-	public @ResponseBody Retval moveUnregist(@RequestParam("pw") String pw){
-		logger.info("GO:: {}","unregist");
-		if (pw.equals(member.getPw())) {
+	public @ResponseBody Retval moveUnregist(@RequestParam("pw") String pw, HttpSession session){
+		logger.info("== MEMBER CONTROLLER UNREGIST :: UNREGIST :: {} ==","SUCCESS");
+		member.setPw(pw);
+		if (pw.equals(session.getAttribute("pw"))) {
 			retval.setMessage("success");
 			service.delete(member);
+			session.invalidate();
 		}else{
 			retval.setMessage("fail");
 		}
 		return retval;
 	}
-	@RequestMapping("/login")
-	public String login(){
-		logger.info("GO :: {}","login");
-		return "public:member/login.tiles";
-	}
 	@RequestMapping("/logout")
 	public String moveLogout(SessionStatus status){
-		logger.info("GO :: {}","logout");
+		logger.info("== MEMBER CONTROLLER LOGOUT :: LOGOUT :: {} ==","SUCCESS");
 		status.setComplete();
-		logger.info("SESSION :: {}","CLEAR");
 		return "redirect:/";
 	}
-	@RequestMapping("/list")
-	public String moveList(){
-		logger.info("GO :: {}","list");
+	@RequestMapping("/list/{pgNum}")
+	public String list(@PathVariable String pgNum, Model model){
+		logger.info("== MEMBER CONTROLLER LIST :: LIST :: {} ==","SUCCESS");
+		List<MemberDTO> list = new ArrayList<MemberDTO>();
+		int[]rows = new int[2];
+	//	int pgCount = totCount/PG_SIZE;
+		rows = Pagination.getStartRow(service.count(), Integer.parseInt(pgNum), Values.PG_SIZE);
+		command.setStart(rows[0]);
+		command.setEnd(rows[1]);
+		model.addAttribute("list", service.list(command));
 		return "admin:member/list.tiles";
 	}
-	@RequestMapping("/find_by")
-	public String moveFindBy(){
-		logger.info("GO :: {}","find_by");
-		return "admin:member/find_by.tiles";
+	
+	
+	@RequestMapping("/search")
+	public String Search(@RequestParam(value="keyField") String keyField,
+			@RequestParam(value="keyword") String keyword, @RequestParam(value="pgNum") String strPgNum, Model model){
+		logger.info("== MEMBER CONTROLLER SEARCH :: SEARCH :: {} ==","SUCCESS");
+		List <MemberDTO> list = new ArrayList<MemberDTO>();
+		service.list(command);
+		model.addAttribute("list", list);
+		return "admin:member/list.tiles";
 	}
 	@RequestMapping("/count")
 	public String moveCount(){
 		logger.info("GO :: {}","count");
 		return "admin:member/count.tiles";
-	}
-	
-	@RequestMapping("/kaup")
-	public String moveKaup(){
-		logger.info("GO :: {}","kaup");
-		return "user:user/kaup.tiles";
-	}
-	@RequestMapping("/rock_sissor_paper")
-	public String moveRockSissorPaper(){
-		logger.info("GO :: {}","rockSissorPaper");
-		return "user:user/rockSissorPaper.tiles";
-	}
-	@RequestMapping("/lotto")
-	public String moveLotto(){
-		logger.info("GO :: {}","lotto");
-		return "user:user/lotto.tiles";
 	}
 }
 

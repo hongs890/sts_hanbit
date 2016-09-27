@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.hanbit.web.domains.GradeDTO;
+import com.hanbit.web.domains.Retval;
 import com.hanbit.web.mappers.GradeMapper;
 import com.hanbit.web.services.GradeService;
 
@@ -69,12 +70,7 @@ public class GradeServiceImpl implements GradeService{
 		}
 		return result;
 	}
-
-	@Override
-	public List<?> list() {
-		return dao.list();
-	}
-
+	
 	@Override
 	public List<?> findBy(String id) {
 		return dao.findByID(id);
@@ -94,11 +90,6 @@ public class GradeServiceImpl implements GradeService{
 	public Map<?, ?> map() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-	@Override
-	public int count() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }

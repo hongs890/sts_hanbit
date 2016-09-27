@@ -9,14 +9,17 @@ import org.springframework.stereotype.Component;
 
 import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
+import com.hanbit.web.domains.Retval;
 import com.hanbit.web.util.CommonService;
 
 @Component
-public interface MemberService extends CommonService{
+public interface MemberService{
 	public String regist(MemberDTO member);
-	public void update(MemberDTO mem);
+	public String update(MemberDTO member);
 	public MemberDTO findOne(Command command);
 	public MemberDTO login(MemberDTO member);
 	public List<?> findByName(String findName);
 	public String delete(MemberDTO member);
+	public List<MemberDTO> list(Command command);
+	public int count();
 }

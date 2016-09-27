@@ -7,7 +7,7 @@
      <li role="presentation" class="dropdown">
   <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Member Manage <span class="caret"></span></a>
    <ul id="member_mgmt" class="dropdown-menu">
-		<li><a id = "list">List</a></li>
+		<li><a id = "admin_list">List</a></li>
 		<li><a id = "find_by">Search</a></li>
 		<li><a id = "count">Count</a></li>
     </ul>

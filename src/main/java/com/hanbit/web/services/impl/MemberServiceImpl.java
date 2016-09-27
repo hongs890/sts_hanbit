@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
+import com.hanbit.web.domains.Retval;
 import com.hanbit.web.mappers.MemberMapper;
 import com.hanbit.web.services.MemberService;
 
@@ -17,40 +18,11 @@ import com.hanbit.web.services.MemberService;
 public class MemberServiceImpl implements MemberService {
 	@Autowired private SqlSession sqlSession;
 	@Autowired private Command command;
+	@Autowired private Retval val;
 	@Override
 	public String regist(MemberDTO member) {
 		return (sqlSession.getMapper(MemberMapper.class).insert(member)==-1)?"success":"fail"; 
 	}
-	@Override
-	public int count() {
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return mapper.count();
-	}
-	@Override
-	public MemberDTO findOne(Command command) {
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return mapper.findOne(command);
-	}
-	@Override
-	public List<?> list() {
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return mapper.list();
-	}
-	@Override
-	public List<?> findByName(String findName) {
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return mapper.findByName(findName);
-	}
-	@Override
-	public List<?> findBy(String keyword) {
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return null;
-	}
-	@Override
-	public Map<?, ?> map() {
-		return null;
-	}
-	
 	@Override
 	public MemberDTO login(MemberDTO member) {
 		MemberDTO mem = new MemberDTO();
@@ -72,13 +44,32 @@ public class MemberServiceImpl implements MemberService {
 		return mem;
 	}
 	@Override
-	public void update(MemberDTO mem) {
-
+	public String update(MemberDTO member) {
+		return String.valueOf(sqlSession.getMapper(MemberMapper.class).update(member));
 	}
 	@Override
 	public String delete(MemberDTO mem) {
+		return String.valueOf(sqlSession.getMapper(MemberMapper.class).delete(mem));
+	}
+	@Override
+	public int count() {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		String temp = String.valueOf(mapper.delete(mem));
-		return temp;
+		mapper.count(val);
+		return val.getCount();
+	}
+	@Override
+	public MemberDTO findOne(Command command) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.findOne(command);
+	}
+	@Override
+	public List<?> findByName(String findName) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.findByName(findName);
+	}
+
+	@Override
+	public List<MemberDTO> list(Command command) {
+		return sqlSession.getMapper(MemberMapper.class).list(command);
 	}
 }

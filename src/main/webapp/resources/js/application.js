@@ -217,7 +217,7 @@ var member = (function(){
 		$('#delete').click(function(){controller.move('member','delete');})
 		$('#login').click(function(){controller.move('member','login');})
 		$('#logout').click(function(){controller.move('member','logout');})
-		$('#list').click(function(){controller.move('member','list');})
+		$('#admin_list').click(function(){controller.move('member','list/1');})
 		$('#find_by').click(function(){controller.move('member','find_by');})
 		$('#count').click(function(){controller.move('member','count');})
 		$('#member_content_a_member').click(function(){controller.move('member','main')});
@@ -292,7 +292,6 @@ var member = (function(){
 			member.init();
 			$('#check_dup').click(function(){
 				if (util.pwChecker($('#id').val()) === 'yes') {
-					alert('정규식 성공');
 					$.ajax({
 						url : app.context()+'/member/check_dup/'+$('#id').val(),
 						success : function(data){
@@ -380,10 +379,18 @@ var member = (function(){
 							 $('#member_detail #detail_phone').html('<input id="update_phone"></input>');	
 							 $('#go_update2').html('<input id="go_update3" type="button" value="finish update"></input>');
 							 $('#go_update3').click(function(){
+								 
+								 var update_info = {
+										 'pw':$('#update_pw').val(),
+										 'email':$('#update_email').val(),
+										 'phone':$('#update_phone').val()
+								 };
+								 
 								 $.ajax({
 								 		url : app.context()+'/member/update',
 								 		type : 'POST',
-								 		data : {'pw':$('#update_pw').val(), 'email':$('#update_email').val(), 'phone':$('#update_phone').val()},
+								 		contentType : 'application/json',
+								 		data : JSON.stringify(update_info),
 								 		dataType : 'json',
 								 		success : function(data){
 								 			if (data.message === 'success') {
@@ -410,9 +417,9 @@ var member = (function(){
 							 		dataType : 'json',
 							 		success : function(data){
 											 if (data.message === 'success') {
-												alert('unregist 성공');
+												alert('회원탈퇴가 완료되었습니다.');
 											}else{
-												alert('unregist 실패');
+												alert('비밀번호가 일치하지 않습니다.');
 											}
 										
 							 		},
@@ -661,14 +668,28 @@ var admin = (function() {
 	};
 	return{	
 		getPass : getPass,setPass : setPass, init : init,
-		check : function(){	
+		check : function(){
+			controller.move('admin','main');
+		},
+		check2 : function(){	
 			setPass(1);
 			var isAdmin = confirm('관리자입니까?');
-			if (!isAdmin) {	alert('관리자만 접근할 수 있는 페이지입니다.');} 
-			else {var password = prompt('관리자 비밀번호를 입력해주세요');
-			if (password == 1) {controller.move('admin','main');}
-			else{alert('잘못된 비밀번호를 입력하셨습니다');}
-			}}};
+			if (!isAdmin) {	
+				alert('관리자만 접근할 수 있는 페이지입니다.');
+			} else {
+				var password = prompt('관리자 비밀번호를 입력해주세요');
+				if (password == 1) {
+					controller.move('admin','main');
+				} else {
+					alert('잘못된 비밀번호를 입력하셨습니다');
+				}
+			}
+		},
+		member_list : function(){
+			alert('0000');
+			location.href = app.context()+'/member/list/1';
+		}
+	};
 })();
 
 /*

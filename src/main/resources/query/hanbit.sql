@@ -1,3 +1,8 @@
+====== TEMP =======
+
+SELECT * FROM member;
+delete from member where mem_id ='hongs';
+
 ===== CREATE & DROP =====
 DROP SEQUENCE grade_seq;
 DROP SEQUENCE art_seq;
@@ -5,150 +10,18 @@ DROP SEQUENCE subj_seq;
 DROP SEQUENCE major_seq;
 DROP SEQUENCE exam_seq;
 
-SELECT * FROM member;
-delete from member where mem_id ='hongs';
-
 CREATE SEQUENCE grade_seq START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE;
 CREATE SEQUENCE art_seq START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE;
 CREATE SEQUENCE subj_seq START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE;
 CREATE SEQUENCE major_seq START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE;
 CREATE SEQUENCE exam_seq START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE;
 
-
-==========VIEW=======
-
-CREATE OR REPLACE VIEW Major_View AS SELECT
-	m.major_seq AS major_seq,
-	m.title AS major_title,
-	u.mem_id AS mem_id,
-	u.pw AS pw,
-	u.name AS name,
-	u.gender AS gender,
-	u.reg_date AS reg_date,
-	u.ssn AS ssn,
-	u.email AS email,
-	u.profile_img AS profile_img,
-	u.role AS role,
-	u.phone AS phone
-FROM Major m, Member u WHERE m.major_seq = u.major_seq;
-
-CREATE OR REPLACE VIEW Grade_View AS SELECT
-	u.mem_id AS mem_id,
-	u.pw AS pw,
-	u.name AS name,
-	u.gender AS gender,
-	u.reg_date AS reg_date,
-	u.ssn AS ssn,
-	u.email AS email,
-	u.profile_img AS profile_img,
-	u.role AS role,
-	u.phone AS phone,
-	g.grade_seq AS grade_seq,
-	g.grade AS grade,
-	g.term AS term,
-	s.subj_seq AS subj_seq,
-	s.subj_name AS subj_name,
-	x.exam_seq AS exam_seq,
-	x.score AS score
-FROM Member u, Grade g, Subject s, Exam x WHERE u.mem_id = g.mem_id AND u.mem_id = s.mem_id AND u.mem_id = x.mem_id;
-
-CREATE OR REPLACE VIEW Board_View AS SELECT 
-	b.art_seq AS art_seq,
-	b.category AS category,
-	b.title AS title,
-	b.reg_date AS board_reg_date,
-	b.content AS content
-	u.mem_id AS mem_id,
-	u.pw AS pw,
-	u.name AS name,
-	u.gender AS gender,
-	u.reg_date AS mem_reg_date,
-	u.ssn AS ssn,
-	u.email AS email,
-	u.profile_img AS profile_img,
-	u.role AS role,
-	u.phone AS phone,
-	
-FROM Member u, Board b WHERE u.mem_id = b.mem_id;
-
-
-======= insert ========
-CREATE OR REPLACE PROCEDURE insertMajor(
-	sp_major_seq IN Major.major_seq%TYPE,
-	sp_title IN Major.title%TYPE
-) AS BEGIN INSERT INTO Major(major_seq, title) VALUES(sp_major_seq, sp_title) END;
-
-
-CREATE OR REPLACE PROCEDURE insertMember(
-	sp_mem_id IN Member.mem_id%TYPE,
-	sp_pw IN Member.pw%TYPE,
-	sp_name IN Member.name%TYPE,
-	sp_gender IN Member.gender%TYPE,
-	sp_reg_date IN Member.reg_date%TYPE,
-	sp_ssn IN Member.ssn%TYPE,
-	sp_email IN Member.email%TYPE,
-	sp_profile_img IN Member.profile_img%TYPE,
-	sp_role IN Member.role%TYPE,
-	sp_phone IN Member.phone%TYPE,
-	sp_major_seq IN Member.major_seq%TYPE
-) AS BEGIN INSERT INTO Member(mem_id,pw,name,gender,reg_date,ssn,email,profile_img,role,phone,major_seq) VALUES(sp_mem_id, sp_pw, sp_name, sp_gender, sp_reg_date, sp_ssn, sp_email, sp_profile_img, sp_role, sp_phone, sp_major_seq) END;
-
-CREATE OR REPLACE PROCEDURE insertGrade(
-	sp_grade_seq IN Grade.grade_seq%TYPE,
-	sp_grade IN Grade.grade%TYPE,
-	sp_term IN Grade.term%TYPE,
-	sp_mem_id IN Grade.mem_id%TYPE
-) AS BEGIN INSERT INTO Grade(grade_seq, grade, term, mem_id) VALUES(sp_grade_seq, sp_grade, sp_term, sp_mem_id) END;
-
-CREATE OR REPLACE PROCEDURE insertBoard(
-	sp_art_seq IN Board.art_seq%TYPE,
-	sp_category IN Board.category%TYPE,
-	sp_title IN Board.title%TYPE,
-	sp_reg_date IN Board.reg_date%TYPE,
-	sp_content IN Board.content%TYPE,
-	sp_mem_id IN Board.mem_id%TYPE
-) AS BEGIN INSERT INTO Board(art_seq, category, title, reg_date, content, mem_id) VALUES(sp_art_seq, sp_category, sp_title, sp_reg_date, sp_content, sp_mem_id) END;
-
-CREATE OR REPLACE PROCEDURE insertSubject(
-	sp_subj_seq IN Subject.subj_seq%TYPE,
-	sp_subj_name IN Subject.subj_name%TYPE,
-	sp_mem_id IN Subject.mem_id%TYPE
-) AS BEGIN INSERT INTO Subject(subj_seq, subj_name, mem_id) VALUES(sp_subj_seq, sp_subj_name, sp_mem_id) END;
-
-CREATE OR REPLACE PROCEDURE insertExam(
-	sp_exam_seq IN Exam.exam_seq%TYPE,
-	sp_term IN Exam.sp_term%TYPE,
-	sp_score IN Exam.sp_score%TYPE,
-	sp_subj_seq IN Exam.sp_subj_seq%TYPE,
-	sp_mem_id IN Exam.mem_id%TYPE
-)AS BEGIN INSERT INTO Exam(exam_seq, term, score, subj_seq, mem_id) VALUES(sp_exam_seq, sp_term, sp_score, sp_subj_seq, sp_mem_id) END;
-
-exec insertMajor (1,'컴퓨터공학'); end;
-EXEC insertMember('lee','1','이순신','MALE','2016-07-01','800101-1','lee@test.com','lee.jpg','STUDENT','010-7143-0222','0');
-
-
-====== select ======
-SELECT * FROM tab;
-SELECT SEQUENCE_OWNER, SEQUENCE_NAME FROM DBA_SEQUENCES WHERE SEQUENCE_OWNER = 'JUNDEV';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ============= HANBIT ==============
 /*
 ===================== META _PROCEDURE ==================
 */
 SELECT OBJECT_NAME FROM USER_PROCEDURES ORDER BY OBJECT_NAME ASC;
+SELECT SEQUENCE_OWNER, SEQUENCE_NAME FROM DBA_SEQUENCES WHERE SEQUENCE_OWNER = 'JUNDEV';
 DROP PROCEDURE JUNDEV.INSERTMEMBER;
 /*
 ===================== MAJOR =====================
@@ -164,7 +37,21 @@ CREATE TABLE Major(
 	major_seq INT CONSTRAINT major_seq PRIMARY KEY,
 	title VARCHAR2(20) NOT NULL UNIQUE
 );
-
+-- CREATE VIEW
+CREATE OR REPLACE VIEW Major_View AS SELECT
+	m.major_seq AS major_seq,
+	m.title AS major_title,
+	u.mem_id AS mem_id,
+	u.pw AS pw,
+	u.name AS name,
+	u.gender AS gender,
+	u.reg_date AS reg_date,
+	u.ssn AS ssn,
+	u.email AS email,
+	u.profile_img AS profile_img,
+	u.role AS role,
+	u.phone AS phone
+FROM Major m, Member u WHERE m.major_seq = u.major_seq;
 --SP_INSERT_MAJOR
 CREATE OR REPLACE PROCEDURE insert_major(sp_title IN Major.title%TYPE)AS
 BEGIN 
@@ -214,6 +101,26 @@ CREATE TABLE Member(
 	CONSTRAINT gender_ck CHECK (gender in ('MALE','FEMALE')),
 	CONSTRAINT major_member_fk FOREIGN KEY (major_seq) REFERENCES Major(major_seq) ON DELETE CASCADE
 );
+--CREATE_VIEW
+CREATE OR REPLACE VIEW Grade_View AS SELECT
+	u.mem_id AS mem_id,
+	u.pw AS pw,
+	u.name AS name,
+	u.gender AS gender,
+	u.reg_date AS reg_date,
+	u.ssn AS ssn,
+	u.email AS email,
+	u.profile_img AS profile_img,
+	u.role AS role,
+	u.phone AS phone,
+	g.grade_seq AS grade_seq,
+	g.grade AS grade,
+	g.term AS term,
+	s.subj_seq AS subj_seq,
+	s.subj_name AS subj_name,
+	x.exam_seq AS exam_seq,
+	x.score AS score
+FROM Member u, Grade g, Subject s, Exam x WHERE u.mem_id = g.mem_id AND u.mem_id = s.mem_id AND u.mem_id = x.mem_id;
 --SP_INSERT_PROF
 CREATE OR REPLACE PROCEDURE insert_prof(
    sp_mem_id IN Member.mem_id%TYPE,
@@ -233,11 +140,7 @@ BEGIN
 END insert_prof;
 --EXE_INSERT_PROF
 EXEC JUNDEV.INSERT_PROF('profx','1','찰스','MALE','2010-06-01','700101','profx@test.com','default.jpg','PROF','010-1234-5678');
---SP_DELETE_STUDENT
-CREATE OR REPLACE PROCEDURE delete_student(
-    sp_mem_id IN Member.mem_id%TYPE
-)
-AS BEGIN DELETE FROM Member WHERE mem_id = sp_mem_id; END delete_student;
+
 /*
 ===================== MEMBER_STUDENT =====================
 @ AUTHOR : hongs890@gmail.com
@@ -263,6 +166,18 @@ CREATE OR REPLACE PROCEDURE insert_student(
 COMMIT;
 -- EXE_INSERT_STUDENT
 EXEC JUNDEV.INSERT_STUDENT('hong','1','홍길동','MALE','2016-06-01','800101','hong@test.com','default.jpg','STUDENT','010-1234-5678','1000');
+-- SP_DELETE_STUDENT
+CREATE OR REPLACE PROCEDURE delete_student(
+    sp_mem_id IN Member.mem_id%TYPE
+)
+AS BEGIN DELETE FROM Member WHERE mem_id = sp_mem_id; END delete_student;
+--SP_UPDATE_STUDENT
+CREATE OR REPLACE PROCEDURE update_student(
+    sp_mem_id IN Member.mem_id%TYPE,
+    sp_pw IN Member.pw%TYPE,
+    sp_phone IN Member.phone%TYPE,
+    sp_email IN Member.email%TYPE
+)AS BEGIN UPDATE Member SET pw = sp_pw, phone = sp_phone, email = sp_email WHERE mem_id = sp_mem_id; END update_student;
 /*
 ===================== SUBJECT =====================
 @ AUTHOR : hongs890@gmail.com
@@ -343,6 +258,25 @@ COMMIT;
 @ DESC : 공지사항
 =================================================
 */
+--CREATE VIEW
+CREATE OR REPLACE VIEW Board_View AS SELECT 
+	b.art_seq AS art_seq,
+	b.category AS category,
+	b.title AS title,
+	b.reg_date AS board_reg_date,
+	b.content AS content
+	u.mem_id AS mem_id,
+	u.pw AS pw,
+	u.name AS name,
+	u.gender AS gender,
+	u.reg_date AS mem_reg_date,
+	u.ssn AS ssn,
+	u.email AS email,
+	u.profile_img AS profile_img,
+	u.role AS role,
+	u.phone AS phone,
+FROM Member u, Board b WHERE u.mem_id = b.mem_id;
+
 --SP_INSERT_NOTICE
 CREATE OR REPLACE PROCEDURE insert_notice(
    sp_category IN Board.category%TYPE,
@@ -456,16 +390,48 @@ BEGIN delete_major(1000); END delete_major;
 
 
 
+
+================================================================
+
 select 
-mem_id as id,
-pw as pw,
-name as name,
-gender as gender,
-reg_date as regDate,
-email as email,
-profile_img as profileImg,
-role as role,
-ssn as ssn,
-phone as phone,
-major_seq as major_seq
-from member where mem_id = 'prof_james'
+m.mem_id id,
+m.name name,
+m.gender gender,
+m.reg_date regDate,
+m.ssn ssn,
+m.email email,
+m.profile_img profileImg,
+m.role role,
+m.phone phone,
+m.major_seq majorSeq from Member m order by reg_date desc;
+
+
+select rownum seq,t.* from(
+select 
+m.mem_id id,
+m.name name,
+m.gender gender,
+m.reg_date regDate,
+m.ssn ssn,
+m.email email,
+m.profile_img profimeImg,
+m.role role,
+m.phone phone,
+m.major_seq majorSeq from Member m order by reg_date desc)t;
+
+
+
+
+select t2.* from(select rownum seq,t.* from(select 
+m.mem_id id,
+m.name name,
+m.gender gender,
+m.reg_date regDate,
+m.ssn ssn,
+m.email email,
+m.profile_img profileImg,
+m.role role,
+m.phone phone,
+m.major_seq majorSeq from Member m order by reg_date desc) t)t2
+where t2.seq between #{start} and #{end}
+order by t2.seq asc;
