@@ -17,4 +17,9 @@ public class AdminController {
 		logger.info("AdminController ! goMain..");
 		return "admin:admin/content.tiles";
 	}
+	@RequestMapping("/header")
+	public String adminHeader(){
+		logger.info("AdminController ! Admin");
+		return "admin/header.jsp";
+	}
 }

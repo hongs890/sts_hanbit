@@ -2,6 +2,7 @@ package com.hanbit.web.controllers;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -139,31 +140,25 @@ public class MemberController {
 		return "redirect:/";
 	}
 	@RequestMapping("/list/{pgNum}")
-	public @ResponseBody Retval list(@PathVariable String pgNum,Model model){
-		logger.info("LIST pgNum {}",pgNum);
-		List<MemberDTO> list = new ArrayList<MemberDTO>();
+	public @ResponseBody HashMap<String,Object> list(@PathVariable String pgNum,Model model){
+		logger.info("== MEMBER CONTROLLER LIST :: Pgnum :: {} ==",pgNum);
 		int[] rows = new int[2];
 		int[] pages = new int[3];
 		int totCount = service.count();
+		HashMap<String,Object> map = new HashMap<>();
 		pages = Pagination.getPages(totCount, Integer.parseInt(pgNum));
 		rows = Pagination.getRows(totCount, Integer.parseInt(pgNum), Values.PG_SIZE); 
 		command.setStart(rows[0]);
-		command.setEnd(rows[1]);
-		logger.info("LIST pgSize {}", Values.PG_SIZE);
-		logger.info("LIST totCount {}", totCount);
-		logger.info("LIST totPg {}", pages[2]);
-		logger.info("LIST pgNum {}", pgNum);
-		logger.info("LIST startPg {}", pages[0]);
-		logger.info("LIST lastPg {}", pages[1]);	
-		model.addAttribute("list", service.list(command));
-		model.addAttribute("pgSize", Values.PG_SIZE);
-		model.addAttribute("totCount", totCount);
-		model.addAttribute("totPg", pages[2]);
-		model.addAttribute("pgNum", Integer.parseInt(pgNum));
-		model.addAttribute("startPg", pages[0]);
-		model.addAttribute("lastPg", pages[1]);
-		retval.setMessage("success");
-		return retval;
+		command.setEnd(rows[1]);	
+		map.put("list", service.list(command));
+		map.put("pgSize", Values.PG_SIZE);
+		map.put("totCount", totCount);
+		map.put("totPg", pages[2]);
+		map.put("pgNum", Integer.parseInt(pgNum));
+		map.put("startPg", pages[0]);
+		map.put("lastPg", pages[1]);
+		map.put("groupSize", Values.GROUP_SIZE);
+		return map;
 	}
 	
 	
